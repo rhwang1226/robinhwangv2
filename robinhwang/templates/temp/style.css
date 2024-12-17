@@ -1,0 +1,43 @@
+.poppins-regular {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.montserrat-regular {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.montserrat-bold {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.playfair-display.regular {
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    color:white;
+}
+
+h1 {
+    font-family: "Playfair Display", serif;
+    font-size:6em;
+}
+
+.logo {
+    font-size: 1.2em;
+}
+
+.has-letter-spacing {
+    letter-spacing: 2px; /* Adjust spacing as needed */
+}
