@@ -18,26 +18,120 @@
     font-style: normal;
 }
 
-.playfair-display.regular {
-    font-family: "Playfair Display", serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
+@font-face {
+    font-family: 'Mona Sans';
+    src:
+        url('Mona-Sans.woff2') format('woff2 supports variations'),
+        url('Mona-Sans.woff2') format('woff2-variations');
+    font-weight: 200 900;
+    font-stretch: 75% 125%;
+}
+
+
+.monasans {
+    font-family: 'Mona Sans', sans-serif;
+}
+
+.monasans-bold {
+    font-family: 'Mona Sans', sans-serif;
+    font-weight: 700;
+    font-stretch: 125%;
 }
 
 body {
-    color:white;
+    color: white;
+    font-family: 'Mona Sans';
 }
 
-h1 {
-    font-family: "Playfair Display", serif;
-    font-size:6em;
+/* Navbar */
+.navbar {
+    max-height: 50px;
+    background-color: #000b14
 }
 
 .logo {
-    font-size: 1.2em;
+    font-size: 20px;
+    vertical-align: middle;
+    color: white;
 }
 
-.has-letter-spacing {
-    letter-spacing: 2px; /* Adjust spacing as needed */
+.navbar-burger {
+    color: white;
+}
+
+.navbar-menu {
+    background-color: #000b14;
+}
+
+.navbar-item::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.3s;
+}
+
+.navbar-item:hover::after {
+    width: 100%;
+}
+
+.navbar-item:hover {
+    background-color: #000b14;
+}
+
+/* END Navbar */
+/* main */
+
+.main {
+    background:
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1)),
+        /* Top-to-bottom gradient */
+        url('background.jpg');
+    /* Replace with your image URL */
+    background-size: cover;
+    /* Ensures the image covers the entire section */
+    background-position: center;
+    /* Centers the image */
+    background-repeat: no-repeat;
+    /* Prevents the image from repeating */
+    height: calc(100vh - 50px);
+    color: white;
+}
+
+.main-title {
+    font-size: 3.4rem;
+}
+
+.main-subtitle {
+    color: #a5a5a5;
+    font-size: 1.6rem;
+}
+
+@media screen and (max-width: 1023px) {
+    .main-title {
+        font-size: 28px;
+    }
+
+    .main-subtitle {
+        color: #a5a5a5;
+        font-size: 1.2rem;
+    }
+}
+
+.bx {
+    color: white;
+}
+
+/* END main */
+/* intro */
+
+.intro {
+    background-color: black;
+}
+
+.intro-title {
+    font-size: 2.2rem;
 }

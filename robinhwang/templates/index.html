@@ -5,66 +5,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robin Hwang</title>
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap"
-        rel="stylesheet">
-    <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="temp/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: black;">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="container">
             <div class="navbar-brand">
-                <a class="navbar-item logo montserrat-bold has-letter-spacing" href="/index.html" style="color:white">
+                <a class="navbar-item monasans-bold logo" href="/index.html">
                     ROBIN HWANG
                 </a>
 
                 <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                    data-target="navbarBasicExample">
-                    <span aria-hidden="true" style="color:white"></span>
-                    <span aria-hidden="true" style="color:white"></span>
-                    <span aria-hidden="true" style="color:white"></span>
-                    <span aria-hidden="true" style="color:white"></span>
+                    data-target="navbarBasicExample"> 
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
                 </a>
             </div>
 
-            <div id="navbarBasicExample" class="navbar-menu">
+            <div id="navbarBasicExample" class="navbar-menu" style="background-color: #000b14;">
                 <div class="navbar-end">
-                    <a class="navbar-item" style="color:white">
+                    <a class="navbar-item px-5" style="color:white;">
                         Home
                     </a>
 
-                    <a class="navbar-item" style="color:white">
-                        Documentation
+                    <a class="navbar-item px-5" style="color:white;">
+                        Experience
                     </a>
 
-                    <a class="navbar-item" style="color:white">
-                        The Corner
+                    <a class="navbar-item px-5" style="color:white;">
+                        Projects
+                    </a>
+
+                    <a class="navbar-item px-5" style="color:white;">
+                        Blog and Philosophy
+                    </a>
+
+                    <a class="navbar-item px-5" style="color:white;">
+                        Resume
                     </a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Section that accounts for Navbar -->
-    <section class="hero is-fullheight-with-navbar" style="background-color: black;">
-        <div class="hero-body">
-            <div class="container has-text-centered">
-                <h1>
-                    Full Viewport Section
-                </h1>
-                <p>
-                    This section includes the navbar height in its calculation.
-                </p>
+    <!-- main section -->
+    <section class="section main is-fullheight-with-navbar is-flex is-align-items-center">
+        <div class="container">
+            <h1 class="main-title monasans-bold">Hi, I'm Robin Hwang</h1>
+            <h1 class="main-title monasans-bold">Student and Computer Scientist</h1>
+            <div class="columns">
+                <div class="column is-6">
+                    <p class="monasans main-subtitle">An undergraduate at the University of Michigan testing the limits of modern technology, one line at a time.</p>
+                </div>
+            </div>
+            <a href="https://www.linkedin.com/in/hwangr/" target="_blank">
+                <i class='bx bxl-linkedin-square bx-lg pr-5'></i>
+            </a>
+            <a href="https://github.com/rhwang1226/" target="_blank">
+                <i class='bx bxl-github bx-lg pr-5'></i>
+            </a>
+            <a href="https://orcid.org/0000-0003-0161-7179/" target="_blank">
+                <i class='bx bxs-key bx-lg'></i>
+            </a>
+        </div>
+
+    </section>
+
+    <!--intro paragraph-->
+    <section class="section is-large intro">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-6">
+                    <h1 class="intro-title monasans-bold">Message from Robin</h1>
+                    <p>
+
+                    </p>
+                </div>
+                <div class="column is-6">
+
+                </div>
             </div>
         </div>
     </section>
 
+    <script src="temp/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </body>
 
 </html>
