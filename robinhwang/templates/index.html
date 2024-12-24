@@ -8,52 +8,57 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="temp/style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-tooltip@1.2.0/dist/bulma-tooltip.min.css"
+        rel="stylesheet">
+
 </head>
 
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="container">
-            <div class="navbar-brand">
-                <a class="navbar-item monasans-bold logo" href="/index.html">
-                    ROBIN HWANG
-                </a>
-
-                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                    data-target="navbarBasicExample"> 
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
-
-            <div id="navbarBasicExample" class="navbar-menu" style="background-color: #000b14;">
-                <div class="navbar-end">
-                    <a class="navbar-item px-5" style="color:white;">
-                        Home
+    <div class="sticky-nav">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a class="navbar-item monasans-bold logo" href="/index.html">
+                        ROBIN HWANG
                     </a>
 
-                    <a class="navbar-item px-5" style="color:white;">
-                        Experience
-                    </a>
-
-                    <a class="navbar-item px-5" style="color:white;">
-                        Projects
-                    </a>
-
-                    <a class="navbar-item px-5" style="color:white;">
-                        Blog and Philosophy
-                    </a>
-
-                    <a class="navbar-item px-5" style="color:white;">
-                        Resume
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                        data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
                     </a>
                 </div>
+
+                <div id="navbarBasicExample" class="navbar-menu" style="background-color: #000b14;">
+                    <div class="navbar-end">
+                        <a class="navbar-item px-5" style="color:white;">
+                            Home
+                        </a>
+
+                        <a class="navbar-item px-5" style="color:white;">
+                            Experience
+                        </a>
+
+                        <a class="navbar-item px-5" style="color:white;">
+                            Projects
+                        </a>
+
+                        <a class="navbar-item px-5" style="color:white;">
+                            Blog and Philosophy
+                        </a>
+
+                        <a class="navbar-item px-5" style="color:white;">
+                            Resume
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
 
     <!-- main section -->
     <section class="section main is-fullheight-with-navbar is-flex is-align-items-center">
@@ -62,7 +67,8 @@
             <h1 class="main-title monasans-bold">Student and Computer Scientist</h1>
             <div class="columns">
                 <div class="column is-6">
-                    <p class="monasans main-subtitle">An undergraduate at the University of Michigan testing the limits of modern technology, one line at a time.</p>
+                    <p class="monasans main-subtitle">An undergraduate at the University of Michigan testing the limits
+                        of modern technology, one line at a time.</p>
                 </div>
             </div>
             <a href="https://www.linkedin.com/in/hwangr/" target="_blank">
@@ -79,24 +85,276 @@
     </section>
 
     <!--intro paragraph-->
-    <section class="section is-large intro">
+    <section class="section is-medium intro is-flex">
         <div class="container">
             <div class="columns">
-                <div class="column is-6">
-                    <h1 class="intro-title monasans-bold">Message from Robin</h1>
-                    <p>
-
-                    </p>
+                <div class="column is-5">
+                    <img src="temp/profile.png" class="profile">
                 </div>
-                <div class="column is-6">
-
+                <div class="column is-7">
+                    <h1 class="intro-title monasans-bold pb-5">Message to the Guest</h1>
+                    <p class="intro-text">
+                        Welcome to my personal website! My name is Robin Hwang [ˈrɑːbɪn hwɑːŋ], and I am a
+                        first-generation
+                        undergraduate student at the University of Michigan, pursuing a degree
+                        in Computer Science. My passion lies in the practical applications of technology, particularly
+                        its influence on business, entrepreneurship, and science. I also
+                        enjoy project management, where I can lead teams and guide projects to successful completion.
+                    </p>
+                    <br>
+                    <p class="intro-text">
+                        I was born in the Flushing neighborhood of Queens and spent just under a decade in New York City
+                        before moving out east to Long Island, and
+                        ultimately to Ann Arbor for university.
+                    </p>
+                    <br>
+                    <p class="intro-text">
+                        My areas of interest span across artificial intelligence, DevOps, product management, and
+                        high-performance computing. I also have a passion for event management
+                        and have organized conferences for audiences of thousands of attendees.
+                    </p>
+                    <br>
+                    <p class="intro-text">
+                        Outside of my professional interests, I enjoy writing song lyrics, exploring diverse cuisines,
+                        and playing video games. Recently, I’ve been diving into singing
+                        and audio editing as a new hobby, alongside creating YouTube videos.
+                    </p>
+                    <br>
+                    <p class="intro-text pb-6">
+                        Thank you for visiting my portfolio! I hope your journey through my site is enjoyable. If you’d
+                        like to connect, feel free to email me or reach out on LinkedIn—
+                        I love meeting new people!
+                    </p>
+                    <p class="brittanysignature is-size-2" style="color: white;">
+                        Robin Hwang
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <script src="temp/script.js"></script>
+    <!-- toolkit -->
+    <section class="section is-medium toolkit has-text-centered">
+        <h1 class="toolkit-title monasans-bold pb-5">Technical Toolbox</h1>
+        <div class="container has-text-centered">
+            <div class="columns pb-5">
+                <div class="column is-6 has-text-centered">
+                    <h1 class="toolkit-subtitle monasans-bold pb-5">Computer Languages</h1>
+                    <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="Python">
+                        <i class='bx bxl-python toolkit-icons'></i>
+                    </button>
+                    <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="C++">
+                        <i class='bx bxl-c-plus-plus toolkit-icons'></i>
+                    </button>
+                    <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="Java">
+                        <i class='bx bxl-java toolkit-icons'></i>
+                    </button>
+                    <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="HTML">
+                        <i class='bx bxl-html5 toolkit-icons'></i>
+                    </button>
+                    <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="CSS">
+                        <i class='bx bxl-css3 toolkit-icons'></i>
+                    </button>
+                    <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom"
+                        data-tooltip="JavaScript :(">
+                        <i class='bx bxl-javascript toolkit-icons'></i>
+                    </button>
+                </div>
+                <div class="column is-6 has-text-centered">
+                    <h1 class="toolkit-subtitle monasans-bold pb-5">Spoken Languages</h1>
+                    <span class="is-size-4 has-tooltip-arrow has-tooltip-bottom"
+                        data-tooltip="American Dialect">English</span>&emsp;
+                    <span class="is-size-4 has-tooltip-arrow has-tooltip-bottom"
+                        data-tooltip="Gyeongsangnam-do Dialect">Korean</span>
+                </div>
+            </div>
+
+            <h1 class="toolkit-subtitle monasans-bold pb-5">Software Tools</h1>
+            <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="PyTorch">
+                <img src="temp/pytorch.svg" alt="PyTorch Icon" class="toolkit-icons toolkit-pytorch">
+            </button>
+            <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom px-5" data-tooltip="matplotlib">
+                <img src="temp/matplotlib.svg" alt="MatPlotLib Icon" class="toolkit-icons toolkit-matplotlib">
+            </button>
+            <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="NumPy">
+                <img src="temp/numpy.svg" alt="NumPy Icon" class="toolkit-icons toolkit-numpy">
+            </button>
+            <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="Git">
+                <i class='bx bxl-git toolkit-icons'></i>
+            </button>
+            <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="Pandas">
+                <img src="temp/pandas.svg" alt="Pandas Icon" class="toolkit-icons toolkit-numpy">
+            </button>
+            <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="Flask">
+                <i class='bx bxl-flask toolkit-icons'></i>
+            </button>
+            <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="Figma">
+                <i class='bx bxl-figma toolkit-icons'></i>
+            </button>
+            <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="Netlify">
+                <i class='bx bxl-netlify toolkit-icons'></i>
+            </button>
+            <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="AWS EC2">
+                <i class='bx bxl-aws toolkit-icons'></i>
+            </button>
+            <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom"
+                data-tooltip="AGILE Methodology">
+                <i class='bx bx-water toolkit-icons'></i>
+            </button>
+            <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="React">
+                <i class='bx bxl-react toolkit-icons'></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- awards -->
+    <section class="section is-medium awards has-text-centered">
+        <div class="container">
+            <h1 class="awards-title monasans-bold pb-5">Awards and Certifications</h1>
+            <div class="columns">
+                <div class="column is-4">
+                    <div class="card award-card">
+                        <div class="card-content">
+                            <div class="content">
+                                <p class="award-title">William J. Branstrom Freshman Prize</p>
+                                <p class="award-issue">Issued by University of Michigan, March 2023</p>
+                                <p>First-term freshmen who rank in the upper five percent of their class within their school
+                                    or
+                                    college are awarded the William J. Branstrom Freshman Prize. The student must have taken
+                                    at
+                                    least 14 graded (A-E) credits during the fall 2022 term to be eligible for this award.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="card award-card">
+                        <div class="card-content">
+                            <div class="content">
+                                <p class="award-title">University Honors</p>
+                                <p class="award-issue">Issued by University of Michigan, December 2023</p>
+                                <p>The University Honors designation is awarded to students who earned a 3.5 grade point
+                                    average or higher during a term. The student must have taken a minimum of 14 credit
+                                    hours during the term, including at least 12 credits elected on a graded (A-E) basis.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="card award-card">
+                        <div class="card-content">
+                            <div class="content">
+                                <p class="award-title">
+                                    AP Scholar with Honor</p>
+                                <p class="award-issue">Issued by College Board, July 2022</p>
+                                <p>This award is granted to students who receive an average score of at least 3.25 on all AP
+                                    Exams taken, and scores of 3 or higher on four or more of these exams.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="columns">
+                <div class="column is-4">
+                    <div class="card award-card">
+                        <div class="card-content">
+                            <div class="content">
+                                <p class="award-title">
+                                    Excellence in Computer Science Award</p>
+                                <p class="award-issue">Issued by Commack High School, June 2022</p>
+                                <p>This award is given to only one student in the graduating class for demonstrating
+                                    academic excellence in the field of Computer Science. It is given the Department of
+                                    Mathematics and is based on academic achievement and teacher recommendation(s).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="card award-card">
+                        <div class="card-content">
+                            <div class="content">
+                                <p class="award-title">
+                                    New York State Seal of Biliteracy</p>
+                                <p class="award-issue">Issued by New York State Department of Education, June 2022</p>
+                                <p>The New York State Seal of Biliteracy recognizes students that have demonstrated a high
+                                    level of proficiency in English and one other world language (in this case, Spanish).
+                                    Candidates are required to complete a project entirely in Spanish, maintain an average
+                                    of 85% or better in both their English and Spanish classes, and participate in an
+                                    interview
+                                    (in Spanish) regarding a project and future goals.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="card award-card">
+                        <div class="card-content">
+                            <div class="content">
+                                <p class="award-title">
+                                    Congressional App Challenge Runner-Up</p>
+                                <p class="award-issue">Issued by United States Congress, May 2022</p>
+                                <p>The Congressional App Challenge allows high school students from across the country to
+                                    compete against their peers by creating and exhibiting their software application, or
+                                    "app," for mobile, tablet, or computer devices on a platform of their choice.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns">
+                <div class="column is-4">
+                    <div class="card award-card">
+                        <div class="card-content">
+                            <div class="content">
+                                <p class="award-title">
+                                    WAC Lighting Science Fair Honorable Mention</p>
+                                <p class="award-issue">Issued by WAC Lighting, Inc., May 2021</p>
+                                <p>Received an honorable mention award at a county-wide science fair. The research focused
+                                    on the phylogeny of
+                                    SARS-CoV-2, analyzing how different viral clades correlated with hospitalization and
+                                    death rates. To aid fellow researchers in understanding and utilizing this data, they
+                                    developed a custom database in Java. The database was equipped with advanced algorithms,
+                                    including merge-sort for data organization and binary search for efficient query
+                                    processing. This tool allowed users to filter and search for new SARS-CoV-2 strains
+                                    based on unique characteristics such as mutations, discovery dates, and geographical
+                                    origins, demonstrating both technical proficiency and a commitment to meaningful
+                                    scientific contributions.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="card award-card">
+                        <div class="card-content">
+                            <div class="content">
+                                <p class="award-title">
+                                    LISC Science Fair Honors Award</p>
+                                <p class="award-issue">Issued by Long Island Science Congress, May 2019</p>
+                                <p>Awarded an honors award at the Long Island Science Congress Fair. A remake of the Stanford
+                                    Marshmallow Project was conducted in which participants were given an informational
+                                    video, then asked to answer questions about the video to see whether they watched the
+                                    video or not.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <script src="temp/script.js"></script>
 </body>
 
 </html>

@@ -27,6 +27,12 @@
     font-stretch: 75% 125%;
 }
 
+@font-face {
+    font-family: 'Brittany Signature';
+    src:
+        url('brittanySignature.ttf');
+    font-weight: 400;
+}
 
 .monasans {
     font-family: 'Mona Sans', sans-serif;
@@ -38,15 +44,32 @@
     font-stretch: 125%;
 }
 
+.brittanysignature {
+    font-family: 'Brittany Signature';
+    font-weight: 700;
+}
+
 body {
     color: white;
     font-family: 'Mona Sans';
 }
 
+p {
+    font-size: 1.1rem;
+    color: white;
+}
+
 /* Navbar */
 .navbar {
     max-height: 50px;
-    background-color: #000b14
+    background-color: #000b14;
+}
+
+.sticky-nav {
+    position: fixed;
+    background-color: #000b14;
+    width: 100%;
+    z-index: 1000;
 }
 
 .logo {
@@ -87,7 +110,7 @@ body {
 
 .main {
     background:
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1)),
+        linear-gradient(to bottom, #00000066, #000000),
         /* Top-to-bottom gradient */
         url('background.jpg');
     /* Replace with your image URL */
@@ -110,20 +133,10 @@ body {
     font-size: 1.6rem;
 }
 
-@media screen and (max-width: 1023px) {
-    .main-title {
-        font-size: 28px;
-    }
-
-    .main-subtitle {
-        color: #a5a5a5;
-        font-size: 1.2rem;
-    }
-}
-
 .bx {
     color: white;
 }
+
 
 /* END main */
 /* intro */
@@ -133,5 +146,103 @@ body {
 }
 
 .intro-title {
+    background: linear-gradient(to right, #b1acff, #0e0c88); /* Gradient colors */
+    -webkit-background-clip: text; /* Clip the background to text */
+    -webkit-text-fill-color: transparent; /* Make the text color transparent */
     font-size: 2.2rem;
+}
+
+.intro-text {
+    color: #a5a5a5;
+}
+
+@media screen and (max-width: 1023px) {
+    .main-title {
+        font-size: 28px;
+    }
+
+    .main-subtitle {
+        color: #a5a5a5;
+        font-size: 1.2rem;
+    }
+
+    .intro-title {
+        font-size: 28px;
+    }
+}
+
+/* END intro */
+/* toolkit */
+.toolkit-title {
+    background: linear-gradient(to right, #ffffff, #a000a0); /* Gradient colors */
+    -webkit-background-clip: text; /* Clip the background to text */
+    -webkit-text-fill-color: transparent; /* Make the text color transparent */
+    font-size: 2.2rem;
+}
+
+.toolkit-subtitle {
+    font-size: 1.8rem;
+}
+
+.toolkit {
+    background-color: black;
+}
+
+.toolkit-buttons {
+    background-color: transparent;
+    border: 0 0 0 0; 
+    border-color: transparent;
+}
+
+.toolkit-icons {
+    font-size: 4rem;
+    color: white;
+}
+
+.toolkit-pytorch {
+    width: 60px; /* Set desired width */
+    height: 60px; /* Set desired height */
+}
+
+.toolkit-matplotlib {
+    height: 54px; /* Set desired height */
+}
+
+.toolkit-numpy {
+    height: 64px; /* Set desired height */
+}
+
+/* END toolkit */
+/* awards */
+.awards {
+    background-color: black;
+}
+
+.awards-title {
+    background: linear-gradient(to right, #f3633f, #f3e5db); /* Gradient colors */
+    -webkit-background-clip: text; /* Clip the background to text */
+    -webkit-text-fill-color: transparent; /* Make the text color transparent */
+    font-size: 2.2rem;
+}
+
+.award-card {
+    background-color: #111111;
+}
+
+.award-title {
+    font-size: 1.5rem;
+    color: white;
+    font-weight: 600;
+}
+
+.award-issue {
+    color: #a5a5a5; 
+}
+
+@media screen and (max-width: 768px) {
+    .profile {
+        width: 200px; /* Set the desired fixed width */
+        height: 200px; /* Set the desired fixed height */
+        object-fit: cover; /* Ensures the image is properly contained within the set size */
+    }
 }
