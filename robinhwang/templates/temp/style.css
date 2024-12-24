@@ -146,9 +146,12 @@ p {
 }
 
 .intro-title {
-    background: linear-gradient(to right, #b1acff, #0e0c88); /* Gradient colors */
-    -webkit-background-clip: text; /* Clip the background to text */
-    -webkit-text-fill-color: transparent; /* Make the text color transparent */
+    background: linear-gradient(to right, #b1acff, #0e0c88);
+    /* Gradient colors */
+    -webkit-background-clip: text;
+    /* Clip the background to text */
+    -webkit-text-fill-color: transparent;
+    /* Make the text color transparent */
     font-size: 2.2rem;
 }
 
@@ -173,10 +176,14 @@ p {
 
 /* END intro */
 /* toolkit */
+
 .toolkit-title {
-    background: linear-gradient(to right, #ffffff, #a000a0); /* Gradient colors */
-    -webkit-background-clip: text; /* Clip the background to text */
-    -webkit-text-fill-color: transparent; /* Make the text color transparent */
+    background: linear-gradient(to right, #ffffff, #a000a0);
+    /* Gradient colors */
+    -webkit-background-clip: text;
+    /* Clip the background to text */
+    -webkit-text-fill-color: transparent;
+    /* Make the text color transparent */
     font-size: 2.2rem;
 }
 
@@ -190,7 +197,7 @@ p {
 
 .toolkit-buttons {
     background-color: transparent;
-    border: 0 0 0 0; 
+    border: 0 0 0 0;
     border-color: transparent;
 }
 
@@ -200,16 +207,20 @@ p {
 }
 
 .toolkit-pytorch {
-    width: 60px; /* Set desired width */
-    height: 60px; /* Set desired height */
+    width: 60px;
+    /* Set desired width */
+    height: 60px;
+    /* Set desired height */
 }
 
 .toolkit-matplotlib {
-    height: 54px; /* Set desired height */
+    height: 54px;
+    /* Set desired height */
 }
 
 .toolkit-numpy {
-    height: 64px; /* Set desired height */
+    height: 64px;
+    /* Set desired height */
 }
 
 /* END toolkit */
@@ -219,9 +230,12 @@ p {
 }
 
 .awards-title {
-    background: linear-gradient(to right, #f3633f, #f3e5db); /* Gradient colors */
-    -webkit-background-clip: text; /* Clip the background to text */
-    -webkit-text-fill-color: transparent; /* Make the text color transparent */
+    background: linear-gradient(to right, #f3633f, #f3e5db);
+    /* Gradient colors */
+    -webkit-background-clip: text;
+    /* Clip the background to text */
+    -webkit-text-fill-color: transparent;
+    /* Make the text color transparent */
     font-size: 2.2rem;
 }
 
@@ -236,13 +250,47 @@ p {
 }
 
 .award-issue {
-    color: #a5a5a5; 
+    color: #a5a5a5;
+}
+
+/* END toolkit */
+/* mbti */
+.mbti {
+    background-color: black;
+}
+
+.mbti-title {
+    background: linear-gradient(to right, #f5ffe1, #aef727);
+    /* Gradient colors */
+    -webkit-background-clip: text;
+    /* Clip the background to text */
+    -webkit-text-fill-color: transparent;
+    /* Make the text color transparent */
+    font-size: 2.2rem;
+}
+
+.mbti-subtitle {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.mbti-card {
+    background-color: #111111;
+}
+
+/*END mbti */
+/* footer */
+.footer {
+    background-color: #000000f2;
 }
 
 @media screen and (max-width: 768px) {
     .profile {
-        width: 200px; /* Set the desired fixed width */
-        height: 200px; /* Set the desired fixed height */
-        object-fit: cover; /* Ensures the image is properly contained within the set size */
+        width: 200px;
+        /* Set the desired fixed width */
+        height: 200px;
+        /* Set the desired fixed height */
+        object-fit: cover;
+        /* Ensures the image is properly contained within the set size */
     }
 }
