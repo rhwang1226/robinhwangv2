@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'Mona Sans';
+    src:
+        url('../uploads/Mona-Sans.woff2') format('woff2 supports variations'),
+        url('../uploads/Mona-Sans.woff2') format('woff2-variations');
+    font-weight: 200 900;
+    font-stretch: 75% 125%;
+}
+
+@font-face {
+    font-family: 'Brittany Signature';
+    src: url('../uploads/brittanySignature.ttf') format('truetype');
+    font-weight: 400;
+}
+
+.monasans {
+    font-family: 'Mona Sans', sans-serif;
+}
+
+.monasans-bold {
+    font-family: 'Mona Sans', sans-serif;
+    font-weight: 700;
+    font-stretch: 125%;
+}
+
+.brittanysignature {
+    font-family: 'Brittany Signature';
+    font-weight: 700;
+}
+
+body {
+    color: white;
+    font-family: 'Mona Sans';
+}
+
+p {
+    font-size: 1.1rem;
+    color: white;
+}
+
+/* banner */
+
+.banner {
+    background-color: black;
+}
+
+.banner-title {
+    font-size: 3rem;
+}
+
+/* END banner */
+/* relevant experience */

@@ -1,0 +1,47 @@
+/* Navbar */
+.navbar {
+    max-height: 50px;
+    background-color: #000b14;
+}
+
+.sticky-nav {
+    position: fixed;
+    background-color: #000b14;
+    width: 100%;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 20px;
+    vertical-align: middle;
+    color: white;
+}
+
+.navbar-burger {
+    color: white;
+}
+
+.navbar-menu {
+    background-color: #000b14;
+}
+
+.navbar-item::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.3s;
+}
+
+.navbar-item:hover::after {
+    width: 100%;
+}
+
+.navbar-item:hover {
+    background-color: #000b14;
+}
+
+/* END Navbar */

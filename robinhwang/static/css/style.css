@@ -1,36 +1,15 @@
-.poppins-regular {
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.montserrat-regular {
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.montserrat-bold {
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 800;
-    font-style: normal;
-}
-
 @font-face {
     font-family: 'Mona Sans';
-    src:
-        url('Mona-Sans.woff2') format('woff2 supports variations'),
-        url('Mona-Sans.woff2') format('woff2-variations');
+    src: 
+        url('../uploads/Mona-Sans.woff2') format('woff2 supports variations'),
+        url('../uploads/Mona-Sans.woff2') format('woff2-variations');
     font-weight: 200 900;
     font-stretch: 75% 125%;
 }
 
 @font-face {
     font-family: 'Brittany Signature';
-    src:
-        url('brittanySignature.ttf');
+    src: url('../uploads/brittanySignature.ttf') format('truetype');
     font-weight: 400;
 }
 
@@ -59,60 +38,13 @@ p {
     color: white;
 }
 
-/* Navbar */
-.navbar {
-    max-height: 50px;
-    background-color: #000b14;
-}
-
-.sticky-nav {
-    position: fixed;
-    background-color: #000b14;
-    width: 100%;
-    z-index: 1000;
-}
-
-.logo {
-    font-size: 20px;
-    vertical-align: middle;
-    color: white;
-}
-
-.navbar-burger {
-    color: white;
-}
-
-.navbar-menu {
-    background-color: #000b14;
-}
-
-.navbar-item::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: 2px;
-    background: white;
-    transition: width 0.3s;
-}
-
-.navbar-item:hover::after {
-    width: 100%;
-}
-
-.navbar-item:hover {
-    background-color: #000b14;
-}
-
-/* END Navbar */
 /* main */
 
 .main {
     background:
         linear-gradient(to bottom, #00000066, #000000),
         /* Top-to-bottom gradient */
-        url('background.jpg');
+        url('../uploads/background.jpg');
     /* Replace with your image URL */
     background-size: cover;
     /* Ensures the image covers the entire section */
@@ -126,6 +58,15 @@ p {
 
 .main-title {
     font-size: 3.4rem;
+}
+
+.main-title-name {
+    background: linear-gradient(to right, #727af5, #10e9c5);    
+    /* Gradient colors */
+    -webkit-background-clip: text;
+    /* Clip the background to text */
+    -webkit-text-fill-color: transparent;
+    /* Make the text color transparent */
 }
 
 .main-subtitle {
@@ -279,10 +220,6 @@ p {
 }
 
 /*END mbti */
-/* footer */
-.footer {
-    background-color: #000000f2;
-}
 
 @media screen and (max-width: 768px) {
     .profile {

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robin Hwang</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/experience.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-tooltip@1.2.0/dist/bulma-tooltip.min.css"
+        rel="stylesheet">
+        
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+
+    <!-- banner-->
+    <section class="section is-medium monasans-bold has-text-centered banner">
+        <div class="container">
+            <p class="banner-title">Experience</p>
+        </div>
+    </section>
+
+    
+
+    {% include 'footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <script src="{{ url_for('static', filename='js/experience.js') }}"></script>
+</body>
+
+</html>

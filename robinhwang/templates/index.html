@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robin Hwang</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-    <link rel="stylesheet" href="temp/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-tooltip@1.2.0/dist/bulma-tooltip.min.css"
         rel="stylesheet">
@@ -15,55 +15,12 @@
 
 <body>
 
-    <!-- Navbar -->
-    <div class="sticky-nav">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="container">
-                <div class="navbar-brand">
-                    <a class="navbar-item monasans-bold logo" href="/index.html">
-                        ROBIN HWANG
-                    </a>
-
-                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                        data-target="navbarBasicExample">
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                    </a>
-                </div>
-
-                <div id="navbarBasicExample" class="navbar-menu" style="background-color: #000b14;">
-                    <div class="navbar-end">
-                        <a class="navbar-item px-5" style="color:white;">
-                            Home
-                        </a>
-
-                        <a class="navbar-item px-5" style="color:white;">
-                            Experience
-                        </a>
-
-                        <a class="navbar-item px-5" style="color:white;">
-                            Projects
-                        </a>
-
-                        <a class="navbar-item px-5" style="color:white;">
-                            Blog and Philosophy
-                        </a>
-
-                        <a class="navbar-item px-5" style="color:white;">
-                            Resume
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
+    {% include 'navbar.html' %}
 
     <!-- main section -->
     <section class="section main is-fullheight-with-navbar is-flex is-align-items-center">
         <div class="container">
-            <h1 class="main-title monasans-bold">Hi, I'm Robin Hwang</h1>
+            <h1 class="main-title monasans-bold">Hi, I'm <span class="main-title-name">Robin Hwang</span></h1>
             <h1 class="main-title monasans-bold">Student and Computer Scientist</h1>
             <div class="columns">
                 <div class="column is-6">
@@ -92,7 +49,7 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-5">
-                    <img src="temp/profile.png" class="profile">
+                    <img src="{{ url_for('static', filename='uploads/profile.png') }}" class="profile">
                 </div>
                 <div class="column is-7">
                     <h1 class="intro-title monasans-bold pb-5">Message to the Guest</h1>
@@ -174,19 +131,19 @@
 
             <h1 class="toolkit-subtitle monasans-bold pb-5">Software Tools</h1>
             <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="PyTorch">
-                <img src="temp/pytorch.svg" alt="PyTorch Icon" class="toolkit-icons toolkit-pytorch">
+                <img src="{{ url_for('static', filename='uploads/pytorch.svg') }}" alt="PyTorch Icon" class="toolkit-icons toolkit-pytorch">
             </button>
             <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom px-5" data-tooltip="matplotlib">
-                <img src="temp/matplotlib.svg" alt="MatPlotLib Icon" class="toolkit-icons toolkit-matplotlib">
+                <img src="{{ url_for('static', filename='uploads/matplotlib.svg') }}" alt="MatPlotLib Icon" class="toolkit-icons toolkit-matplotlib">
             </button>
             <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="NumPy">
-                <img src="temp/numpy.svg" alt="NumPy Icon" class="toolkit-icons toolkit-numpy">
+                <img src="{{ url_for('static', filename='uploads/numpy.svg') }}" alt="NumPy Icon" class="toolkit-icons toolkit-numpy">
             </button>
             <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="Git">
                 <i class='bx bxl-git toolkit-icons'></i>
             </button>
             <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="Pandas">
-                <img src="temp/pandas.svg" alt="Pandas Icon" class="toolkit-icons toolkit-numpy">
+                <img src="{{ url_for('static', filename='uploads/pandas.svg') }}" alt="Pandas Icon" class="toolkit-icons toolkit-numpy">
             </button>
             <button class="button toolkit-buttons has-tooltip-arrow has-tooltip-bottom" data-tooltip="Flask">
                 <i class='bx bxl-flask toolkit-icons'></i>
@@ -449,33 +406,10 @@
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="content has-text-centered">
-            <p class="monasans-bold">
-                <i class='bx bx-copyright' ></i> 2024 Robin Hwang
-            </p>
-            <p>
-                Made With <i class='bx bxs-heart'></i> and Black Milk Tea (30% Sugar, Less Ice)
-            </p>
-            <p>
-                <a href="https://www.linkedin.com/in/hwangr/" target="_blank">
-                    <i class='bx bxl-linkedin-square bx-md px-3'></i>
-                </a>
-                <a href="https://github.com/rhwang1226/" target="_blank">
-                    <i class='bx bxl-github bx-md px-3'></i>
-                </a>
-                <a href="https://orcid.org/0000-0003-0161-7179/" target="_blank">
-                    <i class='bx bxs-key bx-md px-3'></i>
-                </a>
-                <a href="mailto:rlhwang@umich.edu" target="_blank">
-                    <i class='bx bxs-envelope bx-md px-3'></i>
-                </a>
-            </p>
-        </div>
-    </footer>
+    {% include 'footer.html' %}
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-    <script src="temp/script.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 
 </html>
