@@ -23,6 +23,12 @@
     font-stretch: 125%;
 }
 
+.monasans-wide {
+    font-family: 'Mona Sans', sans-serif;
+    font-weight: 400;
+    font-stretch: 125%;
+}
+
 .brittanysignature {
     font-family: 'Brittany Signature';
     font-weight: 700;
@@ -38,15 +44,23 @@ p {
     color: white;
 }
 
-/* banner */
-
-.banner {
+/* technical experience */
+.technical-experience {
     background-color: black;
 }
 
-.banner-title {
-    font-size: 3rem;
+.te-card {
+    background-color: #141414;
 }
 
-/* END banner */
-/* relevant experience */
+.te-title {
+    font-size: 1.4rem;
+}
+
+.te-company {
+    color:white;
+}
+
+.te-desc {
+    color: white;
+}

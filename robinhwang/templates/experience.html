@@ -10,21 +10,95 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-tooltip@1.2.0/dist/bulma-tooltip.min.css"
         rel="stylesheet">
-        
+    <link href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css" rel="stylesheet">
 </head>
 
 <body>
 
     {% include 'navbar.html' %}
 
-    <!-- banner-->
-    <section class="section is-medium monasans-bold has-text-centered banner">
+    <section class="section is-medium technical-experience">
         <div class="container">
-            <p class="banner-title">Experience</p>
-        </div>
-    </section>
+            <p class="is-size-1 pb-5 monasans-bold">Technical Experience</p>
+            <div class="timeline is-centered">
+                <header class="timeline-header">
+                    <span class="tag is-medium is-primary is-large monasans-bold">Now</span>
+                </header>
 
-    
+                <div class="timeline-item">
+                    <div class="timeline-marker is-warning"></div>
+                    <div class="timeline-content">
+                        <div class="card te-card">
+                            <div class="card-content has-text-left">
+                                <div class="content">
+                                    <p class="te-title monasans-bold">Machine Learning and DevOps Intern</p>
+                                    <p class="te-company">SLAC National Accelerator Laboratory (Stanford University)</p>
+                                    <span class="tag is-medium is-dark">June 2024 - August 2024</span>
+                                    <span class="tag is-medium is-dark">Menlo Park, CA</span>
+                                    <ul class="te-desc">
+                                        <li>
+                                            Developed ML models to predict beam properties and quantify the accuracy and
+                                            robustness of these predictive models over time for the FACET-II injector
+                                        </li>
+                                        <li>
+                                            Replaced older simulation softwares for FACET-II, specifically using
+                                            Impact-T in place of the General Particle Tracer (GPT) and using Bmad in
+                                            place of Lucretia
+                                        </li>
+                                        <li>
+                                            Ran start-to-end simulations of the FACET-II beamline
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <header class="timeline-header">
+                    <span class="tag is-primary is-medium monasans-wide">2024</span>
+                </header>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker is-warning"></div>
+                    <div class="timeline-content">
+                        <div class="card te-card">
+                            <div class="card-content has-text-left">
+                                <div class="content">
+                                    <p class="te-title monasans-bold">Machine Learning Engineering Intern</p>
+                                    <p class="te-company">SLAC National Accelerator Laboratory (Stanford University)</p>
+                                    <span class="tag is-medium is-dark">June 2023 - August 2023</span>
+                                    <span class="tag is-medium is-dark">Menlo Park, CA</span>
+                                    <ul class="te-desc">
+                                        <li>
+                                            Optimized water-cooling systems using Python, PyTorch, numPy, and data from
+                                            FAST particle accelerator injector at Fermilab by implementing a long
+                                            short-term memory (LSTM) neural network
+                                        </li>
+                                        <li>
+                                            Improved speed of normalization of temperature by up to five times using
+                                            model predictive control rather than traditional
+                                            proportional-integral-derivative (PID) controller or other feed-forward
+                                            neural network solutions
+                                        </li>
+                                        <li>
+                                            Prepared findings and gave a lecture at the laboratory on the benefits of
+                                            utilizing machine learning in optimizing particle accelerators
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <header class="timeline-header">
+                    <span class="tag is-primary is-medium monasans-wide">2023</span>
+                </header>
+            </div>
+        </div>
+
+    </section>
 
     {% include 'footer.html' %}
 
