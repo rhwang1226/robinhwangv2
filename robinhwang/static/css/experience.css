@@ -64,3 +64,28 @@ p {
 .te-desc {
     color: white;
 }
+
+/* END technical experience */
+/* coursework */
+.coursework {
+    background-color: black;
+}
+
+.coursework-card {
+    background-color: #141414;
+}
+
+.coursework -title {
+    font-size: 1.4rem;
+}
+
+/* END coursework */
+/* leadership */
+.leadership {
+    background-color: black;
+}
+
+.leadership-card {
+    background-color: #141414;
+}
+/* END leadership /*

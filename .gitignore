@@ -1,4 +1,4 @@
 .vscode
-website/__pycache__
-website/database.db
+robinhwang/__pycache__
 venv
+robinhwang/data

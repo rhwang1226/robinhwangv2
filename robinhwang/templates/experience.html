@@ -17,87 +17,132 @@
 
     {% include 'navbar.html' %}
 
+    <!-- Relevant Experience Section -->
     <section class="section is-medium technical-experience">
         <div class="container">
-            <p class="is-size-1 pb-5 monasans-bold">Technical Experience</p>
+            <p class="is-size-1 pb-5 monasans-bold has-text-centered">Technical Experience</p>
+            <p class="is-size-5 pb-5 has-text-centered">Explore my technical work experience! Each role has been a
+                valuable opportunity to apply my skills,
+                tackle real-world challenges, and contribute meaningfully to innovative projects. Through these
+                experiences, I have gained hands-on expertise in cutting-edge technologies, collaborated with diverse
+                teams, and developed a deeper understanding of the practical applications of my knowledge.</p>
+
+            {% for experience in relevant_experiences %}
+            <div class="card te-card">
+                <div class="card-content has-text-left">
+                    <div class="content">
+                        <p class="te-title monasans-bold">{{ experience[0] }}</p> <!-- Title -->
+                        <p class="te-company">{{ experience[1] }}</p> <!-- Company -->
+                        <span class="tag is-medium is-dark">{{ experience[2] }} - {{ experience[3] }}</span>
+                        <!-- Dates -->
+                        <span class="tag is-medium is-dark">{{ experience[4] }}</span> <!-- Location -->
+                        <ul class="te-desc">
+                            {% for desc in experience[5].split('\n') %}
+                            <li>{{ desc }}</li>
+                            {% endfor %}
+                        </ul> <!-- Description -->
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Coursework Section -->
+    <section class="section is-medium coursework">
+        <div class="container">
+            <p class="is-size-1 pb-5 monasans-bold has-text-centered">Coursework</p>
+            <p class="is-size-5 pb-5 has-text-centered">Take a look at some of the exciting coursework I
+                have completed! Each course represents a unique opportunity to dive deep into a subject, learn from
+                expert instructors, and apply knowledge to solve real-world problems. From mastering foundational
+                concepts to tackling advanced topics, my coursework has helped shape my understanding of the field and
+                develop a robust set of technical and analytical skills. Click a box to learn more about the course!</p>
+
             <div class="timeline is-centered">
-                <header class="timeline-header">
-                    <span class="tag is-medium is-primary is-large monasans-bold">Now</span>
-                </header>
+                {% set grouped_courses = {} %}
 
+                <!-- Group courses by their dates -->
+                {% for course in coursework %}
+                {% set current_date = course[2] + ' - ' + course[3] %}
+                {% if current_date not in grouped_courses %}
+                {% set _ = grouped_courses.update({current_date: []}) %}
+                {% endif %}
+                {% set _ = grouped_courses[current_date].append(course) %}
+                {% endfor %}
+
+                <!-- Render grouped courses -->
+                {% for date, courses in grouped_courses.items() %}
                 <div class="timeline-item">
                     <div class="timeline-marker is-warning"></div>
                     <div class="timeline-content">
-                        <div class="card te-card">
+                        {% for course in courses %}
+                        <div class="card coursework-card mt-3">
                             <div class="card-content has-text-left">
                                 <div class="content">
-                                    <p class="te-title monasans-bold">Machine Learning and DevOps Intern</p>
-                                    <p class="te-company">SLAC National Accelerator Laboratory (Stanford University)</p>
-                                    <span class="tag is-medium is-dark">June 2024 - August 2024</span>
-                                    <span class="tag is-medium is-dark">Menlo Park, CA</span>
-                                    <ul class="te-desc">
-                                        <li>
-                                            Developed ML models to predict beam properties and quantify the accuracy and
-                                            robustness of these predictive models over time for the FACET-II injector
-                                        </li>
-                                        <li>
-                                            Replaced older simulation softwares for FACET-II, specifically using
-                                            Impact-T in place of the General Particle Tracer (GPT) and using Bmad in
-                                            place of Lucretia
-                                        </li>
-                                        <li>
-                                            Ran start-to-end simulations of the FACET-II beamline
-                                        </li>
-                                    </ul>
+                                    <p class="coursework-title monasans-bold">{{ course[0] }}</p> <!-- Title -->
+                                    <span class="tag is-medium is-dark">{{ date }}</span>
+                                    <span class="tag is-medium is-dark">{{ course[1] }}</span> <!-- Institution -->
+                                    <p class="pt-3">{{ course[4] }}</p> <!-- Description -->
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
-
-                <header class="timeline-header">
-                    <span class="tag is-primary is-medium monasans-wide">2024</span>
-                </header>
-
-                <div class="timeline-item">
-                    <div class="timeline-marker is-warning"></div>
-                    <div class="timeline-content">
-                        <div class="card te-card">
-                            <div class="card-content has-text-left">
-                                <div class="content">
-                                    <p class="te-title monasans-bold">Machine Learning Engineering Intern</p>
-                                    <p class="te-company">SLAC National Accelerator Laboratory (Stanford University)</p>
-                                    <span class="tag is-medium is-dark">June 2023 - August 2023</span>
-                                    <span class="tag is-medium is-dark">Menlo Park, CA</span>
-                                    <ul class="te-desc">
-                                        <li>
-                                            Optimized water-cooling systems using Python, PyTorch, numPy, and data from
-                                            FAST particle accelerator injector at Fermilab by implementing a long
-                                            short-term memory (LSTM) neural network
-                                        </li>
-                                        <li>
-                                            Improved speed of normalization of temperature by up to five times using
-                                            model predictive control rather than traditional
-                                            proportional-integral-derivative (PID) controller or other feed-forward
-                                            neural network solutions
-                                        </li>
-                                        <li>
-                                            Prepared findings and gave a lecture at the laboratory on the benefits of
-                                            utilizing machine learning in optimizing particle accelerators
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <header class="timeline-header">
-                    <span class="tag is-primary is-medium monasans-wide">2023</span>
-                </header>
+                {% endfor %}
             </div>
         </div>
+    </section>
 
+
+    <!-- Leadership-->
+    <section class="section is-medium leadership">
+        <div class="container has-text-centered">
+            <p class="is-size-1 pb-5 monasans-bold">Conference Management Experience</p>
+            <p class="is-size-5 pb-5 monasans has-text-centered">
+                I find great fulfillment in organizing conferences and stepping into leadership roles during these
+                events. These experiences allow me to not only bring people together around shared goals and interests
+                but also to hone my skills in project management, teamwork, and effective communication. By coordinating
+                complex logistics, managing diverse teams, and ensuring smooth execution, I develop a strong sense of
+                responsibility and adaptability. Check out some of the conference I have organized below!
+            </p>
+            <div class="columns">
+                <div class="column is-half">
+                    <div class="card leadership-card">
+                        <div class="card-image">
+                            <figure class="image is-5by3">
+                                <img src="https://bulma.io/assets/images/placeholders/96x96.png"
+                                    alt="Placeholder image" />
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="content">
+                                <p class="is-size-4 monasans-bold">Society of Asian Scientists and Engineers<br>2024
+                                    National Convention</p>
+                                <p class="is-size-4 monasans-wide">Director of Workshops and Entertainment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-half">
+                    <div class="card leadership-card">
+                        <div class="card-image">
+                            <figure class="image is-5by3">
+                                <img src="https://bulma.io/assets/images/placeholders/96x96.png"
+                                    alt="Placeholder image" />
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="content">
+                                <p class="is-size-4 monasans-bold">Society of Asian Scientists and Engineers<br>2024
+                                    Midwest Regional Conference</p>
+                                <p class="is-size-4 monasans-wide">Conference Chairperson</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     {% include 'footer.html' %}
