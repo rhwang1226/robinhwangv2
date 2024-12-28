@@ -88,4 +88,8 @@ p {
 .leadership-card {
     background-color: #141414;
 }
+
+.leadership-card-img {
+    object-fit: cover;
+}
 /* END leadership /*

@@ -2,6 +2,7 @@ import sqlite3
 
 # Database file path
 db_path = "robinhwang/data/experience.db"
+images_dir = "robinhwang/static"
 
 # Connect to SQLite database (or create it if it doesn't exist)
 conn = sqlite3.connect(db_path)
@@ -29,6 +30,18 @@ CREATE TABLE IF NOT EXISTS coursework (
     start_date TEXT,
     end_date TEXT,
     description TEXT
+)
+''')
+
+# Create the `conference_management_experience` table
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS conference_management_experience (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    role TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    description TEXT,
+    image_path TEXT
 )
 ''')
 
@@ -100,6 +113,27 @@ for course in coursework_entries:
     INSERT INTO coursework (title, institution, start_date, end_date, description)
     VALUES (?, ?, ?, ?, ?)
     ''', course)
+
+# Save image files and insert data into `conference_management_experience`
+conference_entries = [
+    ("Society of Asian Scientists and Engineers 2024 National Convention", 
+     "Director of Workshops and Entertainment", 
+     2024, 
+     "Organized workshops and entertainment activities for the national convention, coordinating logistics and managing a diverse team to ensure smooth execution.",
+     "sasenatcon2024.jpg"),
+    ("Society of Asian Scientists and Engineers 2024 Midwest Regional Conference", 
+     "Conference Chairperson", 
+     2024, 
+     "Led the planning and execution of the Midwest Regional Conference, managing all aspects including scheduling, team coordination, and event logistics.",
+     "sasemwrc2024.jpg")
+]
+
+for conference in conference_entries:
+    # Insert data into the table
+    cursor.execute('''
+    INSERT INTO conference_management_experience (title, role, year, description, image_path)
+    VALUES (?, ?, ?, ?, ?)
+    ''', (conference[0], conference[1], conference[2], conference[3], conference[4]))
 
 # Commit changes and close connection
 conn.commit()

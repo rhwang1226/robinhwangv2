@@ -26,13 +26,24 @@ def get_coursework():
     conn.close()
     return coursework
 
+# Function to fetch leadership data from the database
+def get_leadership_experience():
+    conn = sqlite3.connect(DATABASE_PATH)
+    cursor = conn.cursor()
+    cursor.execute('SELECT title, role, year, description, image_path FROM conference_management_experience')
+    leadership_experiences = cursor.fetchall()
+    conn.close()
+    return leadership_experiences
+
 @experience_views.route('/experience')
 def experience():
     # Fetch data from both tables
     relevant_experiences = get_relevant_experience()
     coursework = get_coursework()
+    leadership_experiences = get_leadership_experience()
     return render_template(
         'experience.html', 
         relevant_experiences=relevant_experiences, 
-        coursework=coursework
+        coursework=coursework,
+        leadership_experiences=leadership_experiences
     )

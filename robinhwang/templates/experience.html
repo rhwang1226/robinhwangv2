@@ -95,7 +95,8 @@
     </section>
 
 
-    <!-- Leadership-->
+    <!-- Leadership Section -->
+    <!-- Leadership Section -->
     <section class="section is-medium leadership">
         <div class="container has-text-centered">
             <p class="is-size-1 pb-5 monasans-bold">Conference Management Experience</p>
@@ -104,46 +105,34 @@
                 events. These experiences allow me to not only bring people together around shared goals and interests
                 but also to hone my skills in project management, teamwork, and effective communication. By coordinating
                 complex logistics, managing diverse teams, and ensuring smooth execution, I develop a strong sense of
-                responsibility and adaptability. Check out some of the conference I have organized below!
+                responsibility and adaptability. Check out some of the conferences I have organized below!
             </p>
-            <div class="columns">
+            <div class="columns is-multiline">
+                {% for conference in leadership_experiences %}
                 <div class="column is-half">
                     <div class="card leadership-card">
                         <div class="card-image">
                             <figure class="image is-5by3">
-                                <img src="https://bulma.io/assets/images/placeholders/96x96.png"
-                                    alt="Placeholder image" />
+                                <img src="{{ url_for('static', filename='uploads/' + conference[4]) }}"
+                                    alt="{{ conference[0] }}" class="leadership-card-img" />
                             </figure>
                         </div>
                         <div class="card-content">
                             <div class="content">
-                                <p class="is-size-4 monasans-bold">Society of Asian Scientists and Engineers<br>2024
-                                    National Convention</p>
-                                <p class="is-size-4 monasans-wide">Director of Workshops and Entertainment</p>
+                                <p class="is-size-4 monasans-bold">{{ conference[0] }}</p>
+                                <p class="is-size-5 monasans-wide">{{ conference[1] }}</p>
+                                <p class="is-size-6">{{ conference[2] }}</p>
+                                <p class="is-size-6">{{ conference[3] }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="column is-half">
-                    <div class="card leadership-card">
-                        <div class="card-image">
-                            <figure class="image is-5by3">
-                                <img src="https://bulma.io/assets/images/placeholders/96x96.png"
-                                    alt="Placeholder image" />
-                            </figure>
-                        </div>
-                        <div class="card-content">
-                            <div class="content">
-                                <p class="is-size-4 monasans-bold">Society of Asian Scientists and Engineers<br>2024
-                                    Midwest Regional Conference</p>
-                                <p class="is-size-4 monasans-wide">Conference Chairperson</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
+
+
 
     {% include 'footer.html' %}
 
