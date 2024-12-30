@@ -1,0 +1,216 @@
+@font-face {
+    font-family: 'Mona Sans';
+    src:
+        url('../uploads/Mona-Sans.woff2') format('woff2 supports variations'),
+        url('../uploads/Mona-Sans.woff2') format('woff2-variations');
+    font-weight: 200 900;
+    font-stretch: 75% 125%;
+}
+
+@font-face {
+    font-family: 'Brittany Signature';
+    src: url('../uploads/brittanySignature.ttf') format('truetype');
+    font-weight: 400;
+}
+
+.monasans {
+    font-family: 'Mona Sans', sans-serif;
+}
+
+.monasans-bold {
+    font-family: 'Mona Sans', sans-serif;
+    font-weight: 700;
+    font-stretch: 125%;
+}
+
+.monasans-wide {
+    font-family: 'Mona Sans', sans-serif;
+    font-weight: 400;
+    font-stretch: 125%;
+}
+
+.brittanysignature {
+    font-family: 'Brittany Signature';
+    font-weight: 700;
+}
+
+body {
+    color: white;
+    font-family: 'Mona Sans';
+}
+
+p {
+    font-size: 1.1rem;
+    color: white;
+}
+
+/* technical experience */
+.technical-experience {
+    background-color: black;
+}
+
+.te-card {
+    background-color: #141414;
+}
+
+.te-section-title {
+    background: linear-gradient(to right, #a033a0, #dd7583);    
+    /* Gradient colors */
+    -webkit-background-clip: text;
+    /* Clip the background to text */
+    -webkit-text-fill-color: transparent;
+    /* Make the text color transparent */
+}
+
+.te-title {
+    font-size: 1.4rem;
+}
+
+.te-company {
+    color:white;
+}
+
+.te-desc {
+    color: white;
+}
+
+/* END technical experience */
+/* education */
+.education {
+    background-color: black;
+}
+
+.education-title {
+    background: linear-gradient(to right, #b0e7b3, #00c3ff);    
+    /* Gradient colors */
+    -webkit-background-clip: text;
+    /* Clip the background to text */
+    -webkit-text-fill-color: transparent;
+    /* Make the text color transparent */
+}
+
+.education-icons {
+    font-size: 3rem;
+    color: white;
+}
+
+.education-umich {
+    max-height: 100px;
+}
+
+.education-chs {
+    max-height: 150px;
+}
+
+/* END education
+/* coursework */
+.coursework {
+    background-color: black;
+}
+
+.coursework-card {
+    background-color: #141414;
+}
+
+.coursework-section-title {
+    background: linear-gradient(to right, #27cc06, #07d18e);    
+    /* Gradient colors */
+    -webkit-background-clip: text;
+    /* Clip the background to text */
+    -webkit-text-fill-color: transparent;
+    /* Make the text color transparent */
+}
+
+.coursework-title {
+    font-size: 1.2rem;
+}
+
+/* END coursework */
+/* conference */
+.conference {
+    background-color: black;
+}
+
+.conference-card {
+    background-color: #141414;
+    color: white;
+}
+
+.conference-section-title {
+    background: linear-gradient(to right, #28dfff, #3437f0);    
+    /* Gradient colors */
+    -webkit-background-clip: text;
+    /* Clip the background to text */
+    -webkit-text-fill-color: transparent;
+    /* Make the text color transparent */
+}
+
+.conference-card-img {
+    object-fit: cover;
+}
+
+/* END conference */
+/* licenses and certifications */
+.licenses-and-certifications {
+    background-color: black;
+}
+
+.lc-section-title {
+    background: linear-gradient(to right, #199758, #85e6f3);    
+    /* Gradient colors */
+    -webkit-background-clip: text;
+    /* Clip the background to text */
+    -webkit-text-fill-color: transparent;
+    /* Make the text color transparent */
+}
+
+.lc-icon {
+    font-size: 1rem;
+    max-height: 100px;
+}
+
+/* END licenses and certifications */
+/* other experience */
+
+.other-experience {
+    background-color: black;
+}
+
+.oe-section-title {
+    background: linear-gradient(to right, #fffb00, #bb1212);    
+    /* Gradient colors */
+    -webkit-background-clip: text;
+    /* Clip the background to text */
+    -webkit-text-fill-color: transparent;
+    /* Make the text color transparent */
+}
+
+.oe-card {
+    background-color: #141414;
+}
+
+.oe-title {
+    font-size: 1.3rem;
+}
+
+.oe-company {
+    color:white;
+}
+
+.oe-desc {
+    color: white;
+}
+
+/* END other experience */
+
+
+@media screen and (min-width: 1023px) {
+    .profile {
+        width: 200px;
+        /* Set the desired fixed width */
+        height: 200px;
+        /* Set the desired fixed height */
+        object-fit: cover;
+        /* Ensures the image is properly contained within the set size */
+    }
+}

@@ -87,7 +87,7 @@ p {
 }
 
 .intro-title {
-    background: linear-gradient(to right, #b1acff, #0e0c88);
+    background: linear-gradient(to right, #f5ffe1, #aef727);
     /* Gradient colors */
     -webkit-background-clip: text;
     /* Clip the background to text */
@@ -98,21 +98,6 @@ p {
 
 .intro-text {
     color: #a5a5a5;
-}
-
-@media screen and (max-width: 1023px) {
-    .main-title {
-        font-size: 28px;
-    }
-
-    .main-subtitle {
-        color: #a5a5a5;
-        font-size: 1.2rem;
-    }
-
-    .intro-title {
-        font-size: 28px;
-    }
 }
 
 /* END intro */
@@ -201,7 +186,7 @@ p {
 }
 
 .mbti-title {
-    background: linear-gradient(to right, #f5ffe1, #aef727);
+    background: linear-gradient(to right, #b1acff, #0e0c88);
     /* Gradient colors */
     -webkit-background-clip: text;
     /* Clip the background to text */
@@ -220,6 +205,21 @@ p {
 }
 
 /*END mbti */
+@media screen and (max-width: 1023px) {
+    .main-title {
+        font-size: 28px;
+    }
+
+    .main-subtitle {
+        color: #a5a5a5;
+        font-size: 1.2rem;
+    }
+
+    .intro-title {
+        font-size: 28px;
+    }
+}
+
 
 @media screen and (max-width: 768px) {
     .profile {

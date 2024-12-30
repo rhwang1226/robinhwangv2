@@ -75,7 +75,7 @@ coursework_entries = [
     ("EECS 376: Foundation of Computer Science", "University of Michigan", 
      "September 2024", "December 2024", 
      "An introduction to Computer Science theory, covering algorithmic analysis, computability, complexity, randomness, and applications of theoretical concepts in cryptography."),
-    ("Hands-On High Performance Computing", "Oak Ridge Leadership Computing Facility (SC24)", 
+    ("Hands-On High Performance Computing", "Oak Ridge Leadership Computing Facility", 
      "November 2024", "November 2024", 
      "A seven-hour crash course designed for students attending the SuperComputing24 conference in Atlanta, GA. Offers hands-on experience with high-performance computing (HPC) systems, exploring their applications in machine learning and quantum computing."),
     ("EECS 370: Introduction to Computer Organization", "University of Michigan", 
@@ -118,12 +118,12 @@ for course in coursework_entries:
 conference_entries = [
     ("Society of Asian Scientists and Engineers 2024 National Convention", 
      "Director of Workshops and Entertainment", 
-     2024, 
+     "October 10-12, 2024", 
      "Organized workshops and entertainment activities for the national convention, coordinating logistics and managing a diverse team to ensure smooth execution.",
      "sasenatcon2024.jpg"),
     ("Society of Asian Scientists and Engineers 2024 Midwest Regional Conference", 
      "Conference Chairperson", 
-     2024, 
+     "March 30, 2024", 
      "Led the planning and execution of the Midwest Regional Conference, managing all aspects including scheduling, team coordination, and event logistics.",
      "sasemwrc2024.jpg")
 ]
