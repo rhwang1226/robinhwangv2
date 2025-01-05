@@ -20,46 +20,74 @@
     <!-- Relevant Experience Section -->
     <section class="section is-medium projects">
         <div class="container">
-            <p class="is-size-1 pb-5 monasans-bold has-text-centered projects-title">Projects</p>
-            <p class="is-size-5 pb-5 has-text-centered">Welcome to my projects page! Here, I showcase some
-                of the technical projects that I have completed both for work and for 
+            <p class="is-size-1 pb-5 monasans-bold has-text-centered projects-title">Project Gallery</p>
+            <p class="is-size-5 pb-5 has-text-centered">Welcome to my project gallery! Here, I showcase some
+                of the technical projects that I have completed both for work and in my free time. Some of the projects
+                link to its repository!
             </p>
-
-            <div class="card te-card">
-                <div class="card-content has-text-left">
-                    <div class="content">
-                        <p class="te-title monasans-bold">Machine Learning and DevOps Intern</p>
-                        <p class="te-company">SLAC National Accelerator Laboratory (Stanford University)</p>
-                        <span class="tag is-medium is-dark">June 2024 - Present</span>
-                        <span class="tag is-medium is-dark">Menlo Park, CA</span>
-                        <ul class="te-desc">
-                            <li>Developed ML models to predict beam properties and quantify the accuracy and robustness
-                                of these predictive models over time for the FACET-II injector.</li>
-                            <li>Replaced older simulation softwares for FACET-II, specifically using Impact-T in place
-                                of the General Particle Tracer (GPT) and using Bmad in place of Lucretia.</li>
-                            <li>Ran start-to-end simulations of the FACET-II beamline.</li>
-                        </ul>
+            <div class="columns">
+                <div class="column is-one-third">
+                    <div class="card project-card">
+                        <div class="card-content has-text-left">
+                            <div class="content">
+                                <p class="project-title monasans-bold">Wikipedia Search Engine</p>
+                                <span class="tag is-medium is-dark">Python</span>
+                                <span class="tag is-medium is-dark">HTML</span>
+                                <span class="tag is-medium is-dark">CSS</span>
+                                <span class="tag is-medium is-dark">Flask</span>
+                                <span class="tag is-medium is-dark">Bash</span>
+                                <span class="tag is-medium is-dark">APIs</span>
+                                <span class="tag is-medium is-dark">Information Retreival</span>
+                                <p class="project-desc pt-3">
+                                    Search engine that indexes Wikipedia pages with user-adjustable tf-idf and
+                                    PageRank weights. Includes a MapReduce pipeline for parallel data processing
+                                    of Wikipedia HTML archives.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card te-card">
-                <div class="card-content has-text-left">
-                    <div class="content">
-                        <p class="te-title monasans-bold">Machine Learning Engineering Intern</p>
-                        <p class="te-company">SLAC National Accelerator Laboratory (Stanford University)</p>
-                        <span class="tag is-medium is-dark">June 2023 - August 2023</span>
-                        <span class="tag is-medium is-dark">Menlo Park, CA</span>
-                        <ul class="te-desc">
-                            <li>Optimized water-cooling systems using Python, PyTorch, numPy, and data from FAST
-                                particle accelerator injector at Fermilab by implementing a long short-term memory
-                                (LSTM) neural network.</li>
-                            <li>Improved speed of normalization of temperature by up to five times using model
-                                predictive control rather than traditional proportional-integral-derivative (PID)
-                                controller or other feed-forward neural network solutions.</li>
-                            <li>Prepared findings and gave a lecture at the laboratory on the benefits of utilizing
-                                machine learning in optimizing particle accelerators.</li>
-                        </ul>
-                    </div>
+                <div class="column is-one-third">
+                    <a href="https://github.com/rhwang1226/facetii-parameter-scan" target="__new__">
+                        <div class="card project-card">
+                            <div class="card-content has-text-left">
+                                <div class="content">
+                                    <p class="project-title monasans-bold">Start-to-End Particle Accelerator Simulations
+                                    </p>
+                                    <span class="tag is-medium is-dark">Python</span>
+                                    <span class="tag is-medium is-dark">matplotlib</span>
+                                    <span class="tag is-medium is-dark">NumPy</span>
+                                    <span class="tag is-medium is-dark">Bmad</span>
+                                    <span class="tag is-medium is-dark">PyTao</span>
+                                    <p class="project-desc pt-3">
+                                        Simulation software of the FACET-II beamline at SLAC National Accelerator
+                                        Laboratory with
+                                        features to adjust accelerating cavity phase, amplitude, and electron source
+                                        charge.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="column is-one-third">
+                    <a href="https://github.com/rhwang1226/lstm_lcls_water_cooling" target="__new__">
+                        <div class="card project-card">
+                            <div class="card-content has-text-left">
+                                <div class="content">
+                                    <p class="project-title monasans-bold">Neural Network for Particle Accelerator</p>
+                                    <span class="tag is-medium is-dark">Python</span>
+                                    <span class="tag is-medium is-dark">PyTorch</span>
+                                    <span class="tag is-medium is-dark">Machine Learning</span>
+                                    <p class="project-desc pt-3">
+                                        A long short-term neural network modeling a time series of the FAST gun at
+                                        Fermilab. Completed
+                                        under the supervision of staff at SLAC National Accelerator Laboratory.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
