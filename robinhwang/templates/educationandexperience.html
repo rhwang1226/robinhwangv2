@@ -27,45 +27,24 @@
                 experiences, I have gained hands-on expertise in cutting-edge technologies, collaborated with diverse
                 teams, and developed a deeper understanding of the practical applications of my knowledge.</p>
 
+            {% for experience in relevant_experiences %}
             <div class="card te-card">
                 <div class="card-content has-text-left">
                     <div class="content">
-                        <p class="te-title monasans-bold">Software Engineering Intern</p>
-                        <p class="te-company">SLAC National Accelerator Laboratory (Stanford University)</p>
-                        <span class="tag is-medium is-dark">June 2024 - Present</span>
-                        <span class="tag is-medium is-dark">Menlo Park, CA</span>
+                        <p class="te-title monasans-bold">{{ experience[0] }}</p> <!-- Title -->
+                        <p class="te-company">{{ experience[1] }}</p> <!-- Company -->
+                        <span class="tag is-medium is-dark">{{ experience[2] }} - {{ experience[3] }}</span>
+                        <!-- Dates -->
+                        <span class="tag is-medium is-dark">{{ experience[4] }}</span> <!-- Location -->
                         <ul class="te-desc">
-                            <li>Automated data collection and processing pipelines, improving the efficiency and
-                                scalability of simulation tasks.</li>
-                            <li>Replaced older simulation softwares for FACET-II, specifically using Impact-T in place
-                                of the General Particle Tracer (GPT) and using Bmad in place of Lucretia.</li>
-                            <li>Conducted start-to-end simulations and analyses of experimental setups to optimize
-                                FACET-II beamline
-                                performance.</li>
-                        </ul>
+                            {% for desc in experience[5].split('\n') %}
+                            <li>{{ desc }}</li>
+                            {% endfor %}
+                        </ul> <!-- Description -->
                     </div>
                 </div>
             </div>
-            <div class="card te-card">
-                <div class="card-content has-text-left">
-                    <div class="content">
-                        <p class="te-title monasans-bold">Machine Learning Engineering Intern</p>
-                        <p class="te-company">SLAC National Accelerator Laboratory (Stanford University)</p>
-                        <span class="tag is-medium is-dark">June 2023 - August 2023</span>
-                        <span class="tag is-medium is-dark">Menlo Park, CA</span>
-                        <ul class="te-desc">
-                            <li>Optimized water-cooling systems using Python, PyTorch, numPy, and data from FAST
-                                particle accelerator injector at Fermilab by implementing a long short-term memory
-                                (LSTM) neural network.</li>
-                            <li>Improved speed of normalization of temperature by up to five times using model
-                                predictive control rather than traditional proportional-integral-derivative (PID)
-                                controller or other feed-forward neural network solutions.</li>
-                            <li>Prepared findings and gave a lecture at the laboratory on the benefits of utilizing
-                                machine learning in optimizing particle accelerators.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </section>
 
@@ -110,249 +89,37 @@
                 develop a robust set of technical and analytical skills. Click a box to learn more about the course!</p>
 
             <div class="timeline is-centered">
+                {% set grouped_courses = {} %}
+
+                <!-- Group courses by their dates -->
+                {% for course in coursework %}
+                {% set current_date = course[2] + ' - ' + course[3] %}
+                {% if current_date not in grouped_courses %}
+                {% set _ = grouped_courses.update({current_date: []}) %}
+                {% endif %}
+                {% set _ = grouped_courses[current_date].append(course) %}
+                {% endfor %}
+
+                <!-- Render grouped courses -->
+                {% for date, courses in grouped_courses.items() %}
                 <div class="timeline-item">
                     <div class="timeline-marker is-warning"></div>
                     <div class="timeline-content">
+                        {% for course in courses %}
                         <div class="card coursework-card mt-3">
                             <div class="card-content has-text-left">
                                 <div class="content">
-                                    <p class="coursework-title monasans-bold">EECS 471: Applied Parallel Programming
-                                        with GPUs</p>
-                                    <span class="tag is-medium is-dark">January 2025 - May 2025</span>
-                                    <span class="tag is-medium is-dark">University of Michigan</span>
-                                    <p class="pt-3">An exploration of parallel computing with GPUs, focusing on CUDA
-                                        programming, memory models, parallel algorithms, and GPU microarchitecture.
-                                        Topics include convolution, reduction patterns, atomic operations, sparse
-                                        methods, and case studies in deep learning.</p>
+                                    <p class="coursework-title monasans-bold">{{ course[0] }}</p> <!-- Title -->
+                                    <span class="tag is-medium is-dark">{{ date }}</span>
+                                    <span class="tag is-medium is-dark">{{ course[1] }}</span> <!-- Institution -->
+                                    <p class="pt-3">{{ course[4] }}</p> <!-- Description -->
                                 </div>
                             </div>
                         </div>
-                        <div class="card coursework-card mt-3">
-                            <div class="card-content has-text-left">
-                                <div class="content">
-                                    <p class="coursework-title monasans-bold">EECS 481: Software Engineering</p>
-                                    <span class="tag is-medium is-dark">January 2025 - May 2025</span>
-                                    <span class="tag is-medium is-dark">University of Michigan</span>
-                                    <p class="pt-3">A practical course in Software Engineering, focusing on process,
-                                        risk, scheduling, quality assurance, testing, measurement techniques, test
-                                        coverage, mutation testing, code inspection, and continuous testing.</p>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-marker is-warning"></div>
-                    <div class="timeline-content">
-                        <div class="card coursework-card mt-3">
-                            <div class="card-content has-text-left">
-                                <div class="content">
-                                    <p class="coursework-title monasans-bold">EECS 485: Web Systems</p>
-                                    <span class="tag is-medium is-dark">August 2024 - December 2024</span>
-                                    <span class="tag is-medium is-dark">University of Michigan</span>
-                                    <p class="pt-3">A holistic course of modern web systems and technologies, covering
-                                        static and dynamic web pages, web security, REST APIs, asynchronous programming,
-                                        React, distributed systems like MapReduce and Google File System, scaling
-                                        techniques, recommender systems, and emerging topics like blockchain and the
-                                        dark web.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card coursework-card mt-3">
-                            <div class="card-content has-text-left">
-                                <div class="content">
-                                    <p class="coursework-title monasans-bold">EECS 376: Foundation of Computer Science
-                                    </p>
-                                    <span class="tag is-medium is-dark">August 2024 - December 2024</span>
-                                    <span class="tag is-medium is-dark">University of Michigan</span>
-                                    <p class="pt-3">An introduction to Computer Science theory, covering algorithmic
-                                        analysis, computability, complexity, randomness, and applications of theoretical
-                                        concepts in cryptography.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker is-warning"></div>
-                    <div class="timeline-content">
-                        <div class="card coursework-card mt-3">
-                            <div class="card-content has-text-left">
-                                <div class="content">
-                                    <p class="coursework-title monasans-bold">Hands-On High Performance Computing</p>
-                                    <span class="tag is-medium is-dark">November 2024</span>
-                                    <span class="tag is-medium is-dark">Oak Ridge National Laboratory</span>
-                                    <p class="pt-3">A seven-hour crash course designed for students attending the
-                                        SuperComputing24 conference in Atlanta, GA. Offers hands-on experience with
-                                        high-performance computing (HPC) systems, exploring their applications in
-                                        machine learning and quantum computing.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker is-warning"></div>
-                    <div class="timeline-content">
-                        <div class="card coursework-card mt-3">
-                            <div class="card-content has-text-left">
-                                <div class="content">
-                                    <p class="coursework-title monasans-bold">EECS 370: Introduction to Computer
-                                        Organization</p>
-                                    <span class="tag is-medium is-dark">January 2024 - May 2024</span>
-                                    <span class="tag is-medium is-dark">University of Michigan</span>
-                                    <p class="pt-3">A course offering foundational knowledge of computer execution,
-                                        hardware architecture, C-based hardware simulation, and Assembly programming.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card coursework-card mt-3">
-                            <div class="card-content has-text-left">
-                                <div class="content">
-                                    <p class="coursework-title monasans-bold">ROB 101: Computational Linear Algebra</p>
-                                    <span class="tag is-medium is-dark">January 2024 - May 2024</span>
-                                    <span class="tag is-medium is-dark">University of Michigan</span>
-                                    <p class="pt-3">An introductory course combining linear algebra and coding to solve
-                                        real-world problems, focusing on matrices, numerical methods, and applications
-                                        in robotics and intelligent systems.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker is-warning"></div>
-                    <div class="timeline-content">
-                        <div class="card coursework-card mt-3">
-                            <div class="card-content has-text-left">
-                                <div class="content">
-                                    <p class="coursework-title monasans-bold">EECS 281: Data Structures and Algorithms
-                                    </p>
-                                    <span class="tag is-medium is-dark">August 2023 - December 2023</span>
-                                    <span class="tag is-medium is-dark">University of Michigan</span>
-                                    <p class="pt-3">A comprehensive dive into Data Structures and Algorithms, covering
-                                        fundamental ADTs, complexity analysis, recursion, sorting algorithms, hashing,
-                                        tree and graph structures, dynamic programming, and advanced algorithmic
-                                        techniques.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker is-warning"></div>
-                    <div class="timeline-content">
-                        <div class="card coursework-card mt-3">
-                            <div class="card-content has-text-left">
-                                <div class="content">
-                                    <p class="coursework-title monasans-bold">EECS 280: Programming and Introduction to
-                                        Data Structures</p>
-                                    <span class="tag is-medium is-dark">January 2023 - May 2023</span>
-                                    <span class="tag is-medium is-dark">University of Michigan</span>
-                                    <p class="pt-3">A foundational course in C++ programming and software development,
-                                        covering machine models, data structures, memory management, recursion, error
-                                        handling, and advanced topics like polymorphism and inheritance.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card coursework-card mt-3">
-                            <div class="card-content has-text-left">
-                                <div class="content">
-                                    <p class="coursework-title monasans-bold">EECS 203: Discrete Mathematics</p>
-                                    <span class="tag is-medium is-dark">January 2023 - May 2023</span>
-                                    <span class="tag is-medium is-dark">University of Michigan</span>
-                                    <p class="pt-3">An introduction to the mathematical foundations of computer science,
-                                        exploring logic, proof techniques, set theory, functions, algorithms, asymptotic
-                                        analysis, counting principles, relations, and an introduction to graph theory.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker is-warning"></div>
-                    <div class="timeline-content">
-                        <div class="card coursework-card mt-3">
-                            <div class="card-content has-text-left">
-                                <div class="content">
-                                    <p class="coursework-title monasans-bold">EECS 183: Elementary Programming Concepts
-                                    </p>
-                                    <span class="tag is-medium is-dark">August 2022 - December 2022</span>
-                                    <span class="tag is-medium is-dark">University of Michigan</span>
-                                    <p class="pt-3">An introductory course in programming and software development using
-                                        C++ and Python, covering functions, loops, arrays, classes, file I/O, and team
-                                        dynamics.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker is-warning"></div>
-                    <div class="timeline-content">
-                        <div class="card coursework-card mt-3">
-                            <div class="card-content has-text-left">
-                                <div class="content">
-                                    <p class="coursework-title monasans-bold">IB Computer Science SL</p>
-                                    <span class="tag is-medium is-dark">September 2021 - May 2022</span>
-                                    <span class="tag is-medium is-dark">International Baccalaureate</span>
-                                    <p class="pt-3">An introductory course in computer science, exploring fundamental
-                                        concepts like programming, algorithms, data structures, system design, and
-                                        computational thinking through the completion of a full-scale application for an
-                                        actual client.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker is-warning"></div>
-                    <div class="timeline-content">
-                        <div class="card coursework-card mt-3">
-                            <div class="card-content has-text-left">
-                                <div class="content">
-                                    <p class="coursework-title monasans-bold">Web Development Bootcamp</p>
-                                    <span class="tag is-medium is-dark">July 2021</span>
-                                    <span class="tag is-medium is-dark">University of Pennsylvania</span>
-                                    <p class="pt-3">A 3-week online bootcamp introducing front-end web development,
-                                        covering HTML, CSS, JavaScript, and GitHub for collaborative coding.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker is-warning"></div>
-                    <div class="timeline-content">
-                        <div class="card coursework-card mt-3">
-                            <div class="card-content has-text-left">
-                                <div class="content">
-                                    <p class="coursework-title monasans-bold">AP Computer Science A</p>
-                                    <span class="tag is-medium is-dark">September 2020 - June 2021</span>
-                                    <span class="tag is-medium is-dark">Advanced Placement</span>
-                                    <p class="pt-3">An introductory Java programming course covering object-oriented
-                                        design, algorithms, data structures, and problem-solving.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card coursework-card mt-3">
-                            <div class="card-content has-text-left">
-                                <div class="content">
-                                    <p class="coursework-title monasans-bold">AP Computer Science Principles</p>
-                                    <span class="tag is-medium is-dark">September 2019 - June 2020</span>
-                                    <span class="tag is-medium is-dark">Advanced Placement</span>
-                                    <p class="pt-3">A course exploring the breadth of topics in computer science,
-                                        including programming, data analysis, the internet, cybersecurity, and the
-                                        societal impacts of computing.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -360,7 +127,7 @@
     <!-- conference Section -->
     <section class="section is-medium conference">
         <div class="container has-text-centered">
-            <p class="is-size-1 pb-5 monasans-bold conference-section-title">Conference Management Experience</p>
+            <p class="conference-section-title is-size-1 pb-5 monasans-bold">Conference Management Experience</p>
             <p class="is-size-5 pb-5 monasans has-text-centered">
                 I find great fulfillment in organizing conferences and stepping into leadership roles during these
                 events. These experiences allow me to not only bring people together around shared goals and interests
@@ -368,77 +135,27 @@
                 complex logistics, managing diverse teams, and ensuring smooth execution, I develop a strong sense of
                 responsibility and adaptability. Check out some of the conferences I have organized below!
             </p>
-            <div class="columns has-text-left">
+            <div class="columns is-multiline">
+                {% for conference in leadership_experiences %}
                 <div class="column is-half">
                     <div class="card conference-card">
                         <div class="card-image">
                             <figure class="image is-5by3">
-                                <img src="/static/uploads/sasenatcon2024.jpg"
-                                    alt="Society of Asian Scientists and Engineers 2024 National Convention"
-                                    class="conference-card-img" />
+                                <img src="{{ url_for('static', filename='uploads/' + conference[4]) }}"
+                                    alt="{{ conference[0] }}" class="conference-card-img" />
                             </figure>
                         </div>
                         <div class="card-content">
                             <div class="content">
-                                <p class="is-size-4 monasans-bold">2024 SASE National Convention</p>
-                                <p class="is-size-5 monasans-wide">Director of Workshops and Entertainment</p>
-                                <span class="tag is-medium is-dark">October 10-12, 2024</span>
-                                <span class="tag is-medium is-dark">Boston, MA</span>
-                                <ul>
-                                    <li>
-                                        Managed and organized multiple workshops and entertainment events for the
-                                        national convention, ensuring a seamless experience for over 5000 attendees from
-                                        across the country.
-                                    </li>
-                                    <li>
-                                        Coordinated with speakers, entertainers, and vendors to deliver high-quality,
-                                        engaging sessions and performances.
-                                    </li>
-                                    <li>
-                                        Developed and executed a detailed schedule, balancing educational content and
-                                        entertainment activities to meet diverse attendee interests.
-                                    </li>
-                                </ul>
+                                <p class="is-size-4 monasans-bold">{{ conference[0] }}</p>
+                                <p class="is-size-5 monasans-wide">{{ conference[1] }}</p>
+                                <p class="is-size-6">{{ conference[2] }}</p>
+                                <p class="is-size-6">{{ conference[3] }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="column is-half">
-                    <div class="card conference-card">
-                        <div class="card-image">
-                            <figure class="image is-5by3">
-                                <img src="/static/uploads/sasemwrc2024.jpg"
-                                    alt="Society of Asian Scientists and Engineers 2024 National Convention"
-                                    class="conference-card-img" />
-                            </figure>
-                        </div>
-                        <div class="card-content">
-                            <div class="content">
-                                <p class="is-size-4 monasans-bold">2024 SASE Midwest Regional Conference</p>
-                                <p class="is-size-5 monasans-wide">Conference Chairperson</p>
-                                <span class="tag is-medium is-dark">March 30, 2024</span>
-                                <span class="tag is-medium is-dark">Ann Arbor, MI</span>
-                                <ul>
-                                    <li>
-                                        Led and organized the 2024 SASE Midwest Regional Conference, which is a
-                                        diversity, equity, and inclusion (DEI) conference for the Asian community
-                                        of scientists and engineers.
-                                    </li>
-                                    <li>
-                                        Coordinated efforts leading to 262 registered attendees, marking a 153% increase
-                                        from the
-                                        previous record set in 2018.
-                                    </li>
-                                    <li>
-                                        Oversaw 11 workshops run by sponsors and SASE team members, contributing to
-                                        professional and
-                                        personal development of attendees.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -447,167 +164,49 @@
     <section class="section is-medium licenses-and-certifications">
         <div class="container has-text-centered">
             <p class="is-size-1 pb-5 monasans-bold lc-section-title">Licenses and Certifications</p>
-            <div class="columns">
-                <div class="column is-one-third">
-                    <img src="{{ url_for('static', filename='uploads/ornl.png') }}" alt="ORNL Icon"
-                    class="lc-icon">
-                    <p class="monasans-bold">OLCF Hands-On HPC</p>
-                    <p>Oak Ridge National Laboratory</p>
-                    <p>Issued December 2024</p>
-                </div>
-                <div class="column is-one-third">
-                    <img src="{{ url_for('static', filename='uploads/ib.png') }}" alt="IB Icon"
-                    class="lc-icon">
-                    <p class="monasans-bold">IB Diploma</p>
-                    <p>International Baccalaureate Organization</p>
-                    <p>Issued July 2022</p>
-                </div>
-                <div class="column is-one-third">
-                    <img src="{{ url_for('static', filename='uploads/dmv.png') }}" alt="DMV Icon"
-                    class="lc-icon">
-                    <p class="monasans-bold">Driver's License - Class D</p>
-                    <p>New York State Department of Motor Vehicles</p>
-                    <p>Issued June 2022 • Expires December 2025</p>
-                </div>
-            </div>
-
-            <div class="columns">
-                <div class="column is-one-third">
-                    <img src="{{ url_for('static', filename='uploads/nysed.png') }}" alt="NYSED Icon"
-                    class="lc-icon">
-                    <p class="monasans-bold">Seal of Biliteracy - English and Spanish</p>
-                    <p>New York State Department of Education</p>
-                    <p>Issued May 2022</p>
-                </div>
-                <div class="column is-one-third">
-                    <img src="{{ url_for('static', filename='uploads/jeffellis.png') }}" alt="Jeff Ellis Icon"
-                    class="lc-icon">
-                    <p class="monasans-bold">Standard First Aid, CPR and AED</p>
-                    <p>Jeff Ellis and Associates, Inc.</p>
-                    <p>Issued July 2021 • Expires July 2022</p>
-                </div>
-                <div class="column is-one-third">
-                    <img src="{{ url_for('static', filename='uploads/jeffellis.png') }}" alt="Jeff Ellis Icon"
-                    class="lc-icon">
-                    <p class="monasans-bold">Lifeguard Certification</p>
-                    <p>Jeff Ellis and Associates, Inc.</p>
-                    <p>Issued July 2021 • Expires July 2022</p>
-                </div>
+            <div class="columns is-multiline">
+                {% for license in licenses_and_certifications %}
+                    <div class="column is-one-third">
+                        <img src="{{ url_for('static', filename=license[4]) }}" alt="{{ license[0] }} Icon" class="lc-icon">
+                        <p class="monasans-bold">{{ license[0] }}</p>
+                        <p>{{ license[1] }}</p>
+                        <p>Issued {{ license[2] }}</p>
+                        {% if license[3] %}
+                            <p>Expires {{ license[3] }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </section>
-
+    
     <!-- other experience-->
     <section class="section is-medium other-experience">
         <div class="container has-text-centered">
             <p class="is-size-1 pb-5 monasans-bold oe-section-title">Other Experience</p>
-            <div class="columns">
-                <div class="column is-one-third has-text-left">
-                    <div class="card oe-card">
-                        <div class="card-content">
-                            <div class="content">
-                                <p class="oe-title monasans-bold">Information Assistant</p>
-                                <p class="oe-company">University of Michigan</p>
-                                <span class="tag is-medium is-dark">April 2024 - Present</span>
-                                <span class="tag is-medium is-dark">Ann Arbor, MI</span>
-                                <ul class="oe-desc">
-                                    <li>Provided accurate and timely information to students, staff, and visitors
-                                        regarding campus events, resources, and services.</li>
-                                    <li>Addressed caller concerns with empathy and resourcefulness, escalating complex
-                                        issues to supervisors when necessary.</li>
-                                    <li>Conducted detailed audits of online campus maps for Big Ten universities,
-                                        benchmarking their features and functionality against the University of
-                                        Michigan’s online map system.</li>
-                                </ul>
+            <div class="columns is-multiline">
+                {% for experience in other_experiences %}
+                    <div class="column is-one-third has-text-left">
+                        <div class="card oe-card">
+                            <div class="card-content">
+                                <div class="content">
+                                    <p class="oe-title monasans-bold">{{ experience[0] }}</p>
+                                    <p class="oe-company">{{ experience[1] }}</p>
+                                    <span class="tag is-medium is-dark">{{ experience[2] }}{% if experience[3] %} - {{ experience[3] }}{% endif %}</span>
+                                    <span class="tag is-medium is-dark">{{ experience[4] }}</span>
+                                    <ul class="oe-desc">
+                                        {% for line in experience[5].split('\n') %}
+                                            <li>{{ line }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="column is-one-third has-text-left">
-                    <div class="card oe-card">
-                        <div class="card-content">
-                            <div class="content">
-                                <p class="oe-title monasans-bold">Judge/Mentor</p>
-                                <p class="oe-company">MHacks</p>
-                                <span class="tag is-medium is-dark">September 2024</span>
-                                <span class="tag is-medium is-dark">Ann Arbor, MI</span>
-                                <ul class="oe-desc">
-                                    <li>Served as a judge for over 50 innovative tech projects, providing detailed
-                                        feedback on technical complexity, creativity, and execution.</li>
-                                    <li>Mentored 20+ teams of developers, guiding them through ideation, coding
-                                        challenges, and project presentation.</li>
-                                    <li>Provided real-time technical support to hackathon participants, ensuring
-                                        efficient problem-solving in a high-pressure environment.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-one-third has-text-left">
-                    <div class="card oe-card">
-                        <div class="card-content">
-                            <div class="content">
-                                <p class="oe-title monasans-bold">Barista</p>
-                                <p class="oe-company">Sweetwaters Coffee & Tea</p>
-                                <span class="tag is-medium is-dark">November 2023 - April 2024</span>
-                                <span class="tag is-medium is-dark">Ann Arbor, MI</span>
-                                <ul class="oe-desc">
-                                    <li>Prepared and served high-quality coffee, tea, and specialty beverages while
-                                        adhering to standardized recipes and customer preferences.</li>
-                                    <li>Managed inventory and restocked supplies, contributing to efficient operations
-                                        and reducing downtime during peak hours.</li>
-                                    <li>Delivered exceptional customer service by creating a welcoming environment and
-                                        addressing guest needs promptly and courteously.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="columns">
-                <div class="column is-one-third has-text-left">
-                    <div class="card oe-card">
-                        <div class="card-content">
-                            <div class="content">
-                                <p class="oe-title monasans-bold">Lifeguard</p>
-                                <p class="oe-company">Palace Entertainment</p>
-                                <span class="tag is-medium is-dark">July 2021 - August 2021</span>
-                                <span class="tag is-medium is-dark">Calverton, NY</span>
-                                <ul class="oe-desc">
-                                    <li>Monitored pool and surrounding areas to ensure safety, enforcing rules and
-                                        regulations to prevent accidents and injuries.</li>
-                                    <li>Responded promptly to emergencies, administering CPR, first aid, and life-saving
-                                        techniques to individuals in need.</li>
-                                    <li>Delivered clear and effective communication to patrons regarding pool policies
-                                        and safety protocols.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-one-third has-text-left">
-                    <div class="card oe-card">
-                        <div class="card-content">
-                            <div class="content">
-                                <p class="oe-title monasans-bold">Clerk (Volunteer)</p>
-                                <p class="oe-company">Stony Brook University Medical Center</p>
-                                <span class="tag is-medium is-dark">September 2019 - March 2020</span>
-                                <span class="tag is-medium is-dark">Calverton, NY</span>
-                                <ul class="oe-desc">
-                                    <li>Assisted parents with completing and processing Social Security applications and
-                                        birth certificates for newborns.</li>
-                                    <li>Performed regular comfort rounding, checking in on patients to ensure their
-                                        needs were met and their stay was as comfortable as possible.</li>
-                                    <li>Ensured compliance by verifying that all newborns received required
-                                        immunizations before discharge.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
-    </section>
+    </section>    
 
 
     {% include 'footer.html' %}

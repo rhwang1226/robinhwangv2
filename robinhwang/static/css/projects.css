@@ -49,6 +49,15 @@ p {
     background-color: black;
 }
 
+.projects-title {
+    background: linear-gradient(to right, #802929, #df6474);    
+    /* Gradient colors */
+    -webkit-background-clip: text;
+    /* Clip the background to text */
+    -webkit-text-fill-color: transparent;
+    /* Make the text color transparent */
+}
+
 .project-card {
     background-color: #141414;
 }
