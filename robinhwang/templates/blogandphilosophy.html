@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robin Hwang</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-tooltip@1.2.0/dist/bulma-tooltip.min.css"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blogandphilosophy.css') }}">
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+    <!-- Blog Section -->
+    <section class="section is-medium blog-section blogandphilosophy">
+        <div class="container">
+            <p class="is-size-1 pb-5 monasans-bold has-text-centered bp-title">Blog & Philosophy</p>
+
+            {% for entry in blog_entries %}
+                <div class="box">
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="is-size-4 monasans-bold">{{ entry[0] }}</p>
+                                <p class="is-size-6 has-text-grey">{{ entry[2] }}</p>
+                                <p>{{ entry[1] }}</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <script src="{{ url_for('static', filename='js/blogandphilosophy.js') }}"></script>
+</body>
+
+</html>

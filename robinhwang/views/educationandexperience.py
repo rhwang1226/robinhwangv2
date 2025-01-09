@@ -54,7 +54,7 @@ def get_other_experience():
 
 
 @educationandexperience_views.route('/educationandexperience')
-def educationandexperienceexperience():
+def educationandexperience():
     # Fetch data from all tables
     relevant_experiences = get_relevant_experience()
     coursework = get_coursework()

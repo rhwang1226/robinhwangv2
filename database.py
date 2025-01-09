@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 
 # Database file path
 db_path = "robinhwang/data/robinhwang.db"
@@ -368,6 +369,39 @@ for project in projects:
         INSERT INTO projects (title, description, technologies, github_link)
         VALUES (?, ?, ?, ?)
     ''', project)
+
+####################################### PROJECTS ########################################
+####################################### BLOG AND PHILOSOPHY #######################################
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS blog_entries (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    date_posted TEXT NOT NULL
+)
+''')
+
+# Sample blog entries
+blog_entries = [
+    ("First Blog Post", 
+     "This is the content of my first blog post. Here, I share some thoughts on starting this blog and what I plan to write about.",
+     datetime(2024,12,3).strftime('%Y-%m-%d')),
+
+    ("Exploring Machine Learning", 
+     "In this post, I talk about my journey into machine learning, the projects I've worked on, and resources I found useful.",
+     datetime.now().strftime('%Y-%m-%d')),
+
+    ("Philosophy and Technology", 
+     "A reflection on how philosophy shapes technology and vice versa. I explore key philosophical questions relevant to the tech industry.",
+     datetime(2024,12,23).strftime('%Y-%m-%d'))
+]
+
+# Insert blog entries into the `blog_entries` table
+for entry in blog_entries:
+    cursor.execute('''
+        INSERT INTO blog_entries (title, content, date_posted)
+        VALUES (?, ?, ?)
+    ''', entry)
 
 # Commit changes and close connection
 conn.commit()
