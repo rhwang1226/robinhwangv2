@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robin Hwang</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-tooltip@1.2.0/dist/bulma-tooltip.min.css"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <section class="section is-medium login">
+        <div class="container has-text-centered">
+            <p class="is-size-1 pb-5 monasans-bold has-text-centered projects-title">Login</p>
+            <p class="is-size-5 pb-5 has-text-centered">
+                Please enter the password to access the administrative panel and features.
+            </p>
+            <form action="{{ url_for('login.login') }}" method="POST">
+                <div class="input-container">
+                    <input class="input" type="password" name="password" placeholder="Password" required />
+                    <div class="control">
+                        <button class="button is-dark" type="submit">Login</button>
+                    </div>
+                </div>
+            </form>
+            {% if error %}
+            <p class="message has-text-danger pt-5">{{ error }}</p>
+            {% endif %}
+
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+</body>

@@ -18,7 +18,7 @@
             </div>
 
             <div id="navbarBasicExample" class="navbar-menu" style="background-color: #000b14;">
-                <div class="navbar-end">
+                <div class="navbar-end monasans">
                     <a class="navbar-item px-5" style="color:white;" href="/">
                         Home
                     </a>
@@ -35,9 +35,16 @@
                         Blog and Philosophy
                     </a>
 
-                    <a class="navbar-item px-5" style="color:white;">
+                    <a class="navbar-item px-5" style="color:white;" href="{{ url_for('static', filename='uploads/resume.pdf') }}">
                         Resume
                     </a>
+
+                    {% if session.get('authenticated') %}
+                    <a class="navbar-item px-5" href="{{ url_for('admin.admin') }}" style="color:white;">Admin Panel</a>
+                    <a class="navbar-item px-5" href="{{ url_for('login.logout') }}" style="color:white;">Logout</a>
+                    {% else %}
+                    <a class="navbar-item px-5" href="{{ url_for('login.login') }}" style="color:white;">Login</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

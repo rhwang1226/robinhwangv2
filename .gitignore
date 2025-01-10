@@ -3,3 +3,4 @@ robinhwang/__pycache__
 robinhwang/views/__pycache__
 venv
 robinhwang/data
+.env

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robin Hwang</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-tooltip@1.2.0/dist/bulma-tooltip.min.css"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.5/dist/css/bulma-timeline.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <section class="section is-medium login admin">
+        <div class="container">
+            <p class="is-size-1 pb-5 monasans-bold has-text-centered projects-title">Admin</p>
+            <p class="is-size-4 pb-5 monasans-bold">Relevant Experience Section</p>
+            <ul>
+                <li><a href="admin/add_relevant_experience">Add Relevant Experience</a></li>
+                <li><a href="admin/edit_relevant_experiences">Edit/Delete Relevant Experience</a></li>
+            </ul>
+
+            <p class="is-size-4 py-5 monasans-bold">Coursework Section</p>
+            <ul>
+                <li><a href="admin/add_coursework">Add Coursework</a></li>
+                <li><a href="admin/edit_coursework">Edit/Delete Coursework</a></li>
+            </ul>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+</body>

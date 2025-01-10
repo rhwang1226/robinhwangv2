@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Experience</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/basic.css') }}">
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <section class="section is-medium admin">
+        <div class="container">
+            <h1 class="title">Edit Experience</h1>
+            <form action="{{ url_for('admin.edit_relevant_experience', exp_id=experience[0]) }}" method="POST">
+                <div class="field">
+                    <label class="label">Title</label>
+                    <div class="control">
+                        <input class="input" type="text" name="title" value="{{ experience[1] }}" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Company</label>
+                    <div class="control">
+                        <input class="input" type="text" name="company" value="{{ experience[2] }}" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Start Date</label>
+                    <div class="control">
+                        <input class="input" type="text" name="start_date" value="{{ experience[3] }}" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">End Date</label>
+                    <div class="control">
+                        <input class="input" type="text" name="end_date" value="{{ experience[4] }}" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Location</label>
+                    <div class="control">
+                        <input class="input" type="text" name="location" value="{{ experience[5] }}" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Description</label>
+                    <div class="control">
+                        <textarea class="textarea" name="description" required>{{ experience[6] }}</textarea>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <button class="button is-link" type="submit">Update Experience</button>
+                    <a href="{{ url_for('admin.edit_relevant_experiences') }}" class="button is-light">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+</body>
+
+</html>

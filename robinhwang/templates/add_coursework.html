@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Course</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/basic.css') }}">
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <section class="section is-medium admin">
+        <div class="container">
+            <h1 class="title">Add Course</h1>
+            <form action="{{ url_for('admin.add_course') }}" method="POST">
+                <div class="field">
+                    <label class="label">Title</label>
+                    <div class="control">
+                        <input class="input" type="text" name="title" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Institution</label>
+                    <div class="control">
+                        <input class="input" type="text" name="institution" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Start Date</label>
+                    <div class="control">
+                        <input class="input" type="text" name="start_date" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">End Date</label>
+                    <div class="control">
+                        <input class="input" type="text" name="end_date" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Description</label>
+                    <div class="control">
+                        <textarea class="textarea" name="description" required></textarea>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <button class="button is-link" type="submit">Add Course</button>
+                    <a href="{{ url_for('admin.edit_coursework') }}" class="button is-light">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+</body>
+
+</html>

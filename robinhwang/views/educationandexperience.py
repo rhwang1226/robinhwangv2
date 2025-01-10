@@ -13,7 +13,7 @@ DATABASE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '
 def get_relevant_experience():
     conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
-    cursor.execute('SELECT title, company, start_date, end_date, location, description FROM relevant_experience')
+    cursor.execute('SELECT title, company, start_date, end_date, location, description FROM relevant_experience ORDER BY id DESC')
     experiences = cursor.fetchall()
     conn.close()
     return experiences
@@ -22,7 +22,7 @@ def get_relevant_experience():
 def get_coursework():
     conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
-    cursor.execute('SELECT title, institution, start_date, end_date, description FROM coursework')
+    cursor.execute('SELECT title, institution, start_date, end_date, description FROM coursework ORDER BY id DESC')
     coursework = cursor.fetchall()
     conn.close()
     return coursework
@@ -31,7 +31,7 @@ def get_coursework():
 def get_leadership_experience():
     conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
-    cursor.execute('SELECT title, role, year, description, image_path FROM conference_management_experience')
+    cursor.execute('SELECT title, role, year, description, image_path FROM conference_management_experience ORDER BY id DESC')
     leadership_experiences = cursor.fetchall()
     conn.close()
     return leadership_experiences
@@ -39,7 +39,7 @@ def get_leadership_experience():
 def get_licenses_and_certifications():
     conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
-    cursor.execute('SELECT title, issuer, issue_date, expiration_date, icon_path FROM licenses_and_certifications')
+    cursor.execute('SELECT title, issuer, issue_date, expiration_date, icon_path FROM licenses_and_certifications ORDER BY id DESC')
     licenses = cursor.fetchall()
     conn.close()
     return licenses
@@ -47,7 +47,7 @@ def get_licenses_and_certifications():
 def get_other_experience():
     conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
-    cursor.execute('SELECT title, company, start_date, end_date, location, description FROM other_experience')
+    cursor.execute('SELECT title, company, start_date, end_date, location, description FROM other_experience ORDER BY id DESC')
     other_experiences = cursor.fetchall()
     conn.close()
     return other_experiences

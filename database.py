@@ -1,5 +1,8 @@
 import sqlite3
+import bcrypt
 from datetime import datetime
+import os
+from dotenv import load_dotenv
 
 # Database file path
 db_path = "robinhwang/data/robinhwang.db"
@@ -73,12 +76,13 @@ CREATE TABLE IF NOT EXISTS other_experience (
 
 # Insert data into `relevant_experience`
 relevant_experiences = [
-    ("Machine Learning and DevOps Intern", "SLAC National Accelerator Laboratory (Stanford University)", 
-     "June 2024", "August 2024", "Menlo Park, CA", 
-     "Developed ML models to predict beam properties and quantify the accuracy and robustness of these predictive models over time for the FACET-II injector.\nReplaced older simulation softwares for FACET-II, specifically using Impact-T in place of the General Particle Tracer (GPT) and using Bmad in place of Lucretia.\nRan start-to-end simulations of the FACET-II beamline."),
     ("Machine Learning Engineering Intern", "SLAC National Accelerator Laboratory (Stanford University)", 
      "June 2023", "August 2023", "Menlo Park, CA", 
-     "Optimized water-cooling systems using Python, PyTorch, numPy, and data from FAST particle accelerator injector at Fermilab by implementing a long short-term memory (LSTM) neural network.\nImproved speed of normalization of temperature by up to five times using model predictive control rather than traditional proportional-integral-derivative (PID) controller or other feed-forward neural network solutions.\nPrepared findings and gave a lecture at the laboratory on the benefits of utilizing machine learning in optimizing particle accelerators.")
+     "Optimized water-cooling systems using Python, PyTorch, numPy, and data from FAST particle accelerator injector at Fermilab by implementing a long short-term memory (LSTM) neural network.\nImproved speed of normalization of temperature by up to five times using model predictive control rather than traditional proportional-integral-derivative (PID) controller or other feed-forward neural network solutions.\nPrepared findings and gave a lecture at the laboratory on the benefits of utilizing machine learning in optimizing particle accelerators."),
+    
+    ("Machine Learning and DevOps Intern", "SLAC National Accelerator Laboratory (Stanford University)", 
+     "June 2024", "August 2024", "Menlo Park, CA", 
+     "Developed ML models to predict beam properties and quantify the accuracy and robustness of these predictive models over time for the FACET-II injector.\nReplaced older simulation softwares for FACET-II, specifically using Impact-T in place of the General Particle Tracer (GPT) and using Bmad in place of Lucretia.\nRan start-to-end simulations of the FACET-II beamline.")
 ]
 
 for experience in relevant_experiences:
@@ -89,50 +93,62 @@ for experience in relevant_experiences:
 
 # Insert data into `coursework`
 coursework_entries = [
-    ("EECS 471: Applied Parallel Programming with GPUs", "University of Michigan", 
-     "January 2025", "April 2025", 
-     "An exploration of parallel computing with GPUs, focusing on CUDA programming, memory models, parallel algorithms, and GPU microarchitecture. Topics include convolution, reduction patterns, atomic operations, sparse methods, and case studies in deep learning."),
-    ("EECS 481: Software Engineering", "University of Michigan", 
-     "January 2025", "April 2025", 
-     "An practical course in Software Engineering, focusing on process, risk, scheduling, quality assurance, testing, measurement techniques, test coverage, mutation testing, code inspection, and continuous testing."),
-    ("EECS 485: Web Systems", "University of Michigan", 
-     "September 2024", "December 2024", 
-     "A holistic course of modern web systems and technologies, covering static and dynamic web pages, web security, REST APIs, asynchronous programming, React, distributed systems like MapReduce and Google File System, scaling techniques, recommender systems, and emerging topics like blockchain and the dark web."),
-    ("EECS 376: Foundation of Computer Science", "University of Michigan", 
-     "September 2024", "December 2024", 
-     "An introduction to Computer Science theory, covering algorithmic analysis, computability, complexity, randomness, and applications of theoretical concepts in cryptography."),
-    ("Hands-On High Performance Computing", "Oak Ridge Leadership Computing Facility", 
-     "November 2024", "November 2024", 
-     "A seven-hour crash course designed for students attending the SuperComputing24 conference in Atlanta, GA. Offers hands-on experience with high-performance computing (HPC) systems, exploring their applications in machine learning and quantum computing."),
-    ("EECS 370: Introduction to Computer Organization", "University of Michigan", 
-     "January 2024", "April 2024", 
-     "A course offering foundational knowledge of computer execution, hardware architecture, C-based hardware simulation, and Assembly programming."),
-    ("EECS 281: Data Structures and Algorithms", "University of Michigan", 
-     "September 2023", "December 2023", 
-     "A comprehensive dive into Data Structures and Algorithms, covering fundamental ADTs, complexity analysis, recursion, sorting algorithms, hashing, tree and graph structures, dynamic programming, and advanced algorithmic techniques."),
-    ("EECS 280: Programming and Introduction to Data Structures", "University of Michigan", 
-     "January 2023", "April 2023", 
-     "A foundational course in C++ programming and software development, covering machine models, data structures, memory management, recursion, error handling, and advanced topics like polymorphism and inheritance."),
-    ("EECS 203: Discrete Mathematics", "University of Michigan", 
-     "January 2023", "April 2023", 
-     "An introduction to the mathematical foundations of computer science, exploring logic, proof techniques, set theory, functions, algorithms, asymptotic analysis, counting principles, relations, and an introduction to graph theory."),
-    ("EECS 183: Elementary Programming Concepts", "University of Michigan", 
-     "September 2022", "December 2022", 
-     "An introductory course in programming and software development using C++ and Python, covering functions, loops, arrays, classes, file I/O, and team dynamics."),
-    ("IB Computer Science SL", "International Baccalaureate", 
-     "September 2021", "May 2022", 
-     "An introductory course in computer science, exploring fundamental concepts like programming, algorithms, data structures, system design, and computational thinking through the completion of a full-scale application for an actual client."),
-    ("Web Development Bootcamp", "University of Pennsylvania", 
-     "July 2021", "July 2021", 
-     "A 3-week online bootcamp introducing front-end web development, covering HTML, CSS, JavaScript, and GitHub for collaborative coding."),
+    ("AP Computer Science Principles", "Advanced Placement", 
+     "September 2019", "June 2020", 
+     "A course exploring the breadth of topics in computer science, including programming, data analysis, the internet, cybersecurity, and the societal impacts of computing."),
+    
     ("AP Computer Science A", "Advanced Placement", 
      "September 2020", "June 2021", 
      "An introductory Java programming course covering object-oriented design, algorithms, data structures, and problem-solving."),
-    ("AP Computer Science Principles", "Advanced Placement", 
-     "September 2019", "June 2020", 
-     "A course exploring the breadth of topics in computer science, including programming, data analysis, the internet, cybersecurity, and the societal impacts of computing.")
+    
+    ("Web Development Bootcamp", "University of Pennsylvania", 
+     "July 2021", "July 2021", 
+     "A 3-week online bootcamp introducing front-end web development, covering HTML, CSS, JavaScript, and GitHub for collaborative coding."),
+    
+    ("IB Computer Science SL", "International Baccalaureate", 
+     "September 2021", "May 2022", 
+     "An introductory course in computer science, exploring fundamental concepts like programming, algorithms, data structures, system design, and computational thinking through the completion of a full-scale application for an actual client."),
+    
+    ("EECS 183: Elementary Programming Concepts", "University of Michigan", 
+     "September 2022", "December 2022", 
+     "An introductory course in programming and software development using C++ and Python, covering functions, loops, arrays, classes, file I/O, and team dynamics."),
+    
+    ("EECS 203: Discrete Mathematics", "University of Michigan", 
+     "January 2023", "April 2023", 
+     "An introduction to the mathematical foundations of computer science, exploring logic, proof techniques, set theory, functions, algorithms, asymptotic analysis, counting principles, relations, and an introduction to graph theory."),
+    
+    ("EECS 280: Programming and Introduction to Data Structures", "University of Michigan", 
+     "January 2023", "April 2023", 
+     "A foundational course in C++ programming and software development, covering machine models, data structures, memory management, recursion, error handling, and advanced topics like polymorphism and inheritance."),
+    
+    ("EECS 281: Data Structures and Algorithms", "University of Michigan", 
+     "September 2023", "December 2023", 
+     "A comprehensive dive into Data Structures and Algorithms, covering fundamental ADTs, complexity analysis, recursion, sorting algorithms, hashing, tree and graph structures, dynamic programming, and advanced algorithmic techniques."),
+    
+    ("EECS 370: Introduction to Computer Organization", "University of Michigan", 
+     "January 2024", "April 2024", 
+     "A course offering foundational knowledge of computer execution, hardware architecture, C-based hardware simulation, and Assembly programming."),
+    
+    ("Hands-On High Performance Computing", "Oak Ridge Leadership Computing Facility", 
+     "November 2024", "November 2024", 
+     "A seven-hour crash course designed for students attending the SuperComputing24 conference in Atlanta, GA. Offers hands-on experience with high-performance computing (HPC) systems, exploring their applications in machine learning and quantum computing."),
+    
+    ("EECS 376: Foundation of Computer Science", "University of Michigan", 
+     "September 2024", "December 2024", 
+     "An introduction to Computer Science theory, covering algorithmic analysis, computability, complexity, randomness, and applications of theoretical concepts in cryptography."),
+    
+    ("EECS 485: Web Systems", "University of Michigan", 
+     "September 2024", "December 2024", 
+     "A holistic course of modern web systems and technologies, covering static and dynamic web pages, web security, REST APIs, asynchronous programming, React, distributed systems like MapReduce and Google File System, scaling techniques, recommender systems, and emerging topics like blockchain and the dark web."),
+    
+    ("EECS 481: Software Engineering", "University of Michigan", 
+     "January 2025", "April 2025", 
+     "An practical course in Software Engineering, focusing on process, risk, scheduling, quality assurance, testing, measurement techniques, test coverage, mutation testing, code inspection, and continuous testing."),
+    
+    ("EECS 471: Applied Parallel Programming with GPUs", "University of Michigan", 
+     "January 2025", "April 2025", 
+     "An exploration of parallel computing with GPUs, focusing on CUDA programming, memory models, parallel algorithms, and GPU microarchitecture. Topics include convolution, reduction patterns, atomic operations, sparse methods, and case studies in deep learning.")
 ]
-
 
 for course in coursework_entries:
     cursor.execute('''
@@ -142,16 +158,16 @@ for course in coursework_entries:
 
 # Save image files and insert data into `conference_management_experience`
 conference_entries = [
-    ("Society of Asian Scientists and Engineers 2024 National Convention", 
-     "Director of Workshops and Entertainment", 
-     "October 10-12, 2024", 
-     "Organized workshops and entertainment activities for the national convention, coordinating logistics and managing a diverse team to ensure smooth execution.",
-     "sasenatcon2024.jpg"),
     ("Society of Asian Scientists and Engineers 2024 Midwest Regional Conference", 
      "Conference Chairperson", 
      "March 30, 2024", 
      "Led the planning and execution of the Midwest Regional Conference, managing all aspects including scheduling, team coordination, and event logistics.",
-     "sasemwrc2024.jpg")
+     "sasemwrc2024.jpg"),
+    ("Society of Asian Scientists and Engineers 2024 National Convention", 
+     "Director of Workshops and Entertainment", 
+     "October 10-12, 2024", 
+     "Organized workshops and entertainment activities for the national convention, coordinating logistics and managing a diverse team to ensure smooth execution.",
+     "sasenatcon2024.jpg")
 ]
 
 for conference in conference_entries:
@@ -163,12 +179,12 @@ for conference in conference_entries:
 
 # Insert data into `licenses_and_certifications`
 licenses_and_certifications_entries = [
-    ("OLCF Hands-On HPC", "Oak Ridge National Laboratory", "December 2024", None, "uploads/ornl.png"),
-    ("IB Diploma", "International Baccalaureate Organization", "July 2022", None, "uploads/ib.png"),
-    ("Driver's License - Class D", "New York State Department of Motor Vehicles", "June 2022", "December 2025", "uploads/dmv.png"),
-    ("Seal of Biliteracy - English and Spanish", "New York State Department of Education", "May 2022", None, "uploads/nysed.png"),
+    ("Lifeguard Certification", "Jeff Ellis and Associates, Inc.", "July 2021", "July 2022", "uploads/jeffellis.png"),
     ("Standard First Aid, CPR and AED", "Jeff Ellis and Associates, Inc.", "July 2021", "July 2022", "uploads/jeffellis.png"),
-    ("Lifeguard Certification", "Jeff Ellis and Associates, Inc.", "July 2021", "July 2022", "uploads/jeffellis.png")
+    ("Seal of Biliteracy - English and Spanish", "New York State Department of Education", "May 2022", None, "uploads/nysed.png"),
+    ("Driver's License - Class D", "New York State Department of Motor Vehicles", "June 2022", "December 2025", "uploads/dmv.png"),
+    ("IB Diploma", "International Baccalaureate Organization", "July 2022", None, "uploads/ib.png"),
+    ("OLCF Hands-On HPC", "Oak Ridge National Laboratory", "December 2024", None, "uploads/ornl.png")
 ]
 
 for license in licenses_and_certifications_entries:
@@ -178,30 +194,30 @@ for license in licenses_and_certifications_entries:
     ''', license)
 
 other_experiences = [
-    ("Information Assistant", "University of Michigan", "April 2024", "Present", "Ann Arbor, MI", 
-     "Provided accurate and timely information to students, staff, and visitors regarding campus events, resources, and services.\n"
-     "Addressed caller concerns with empathy and resourcefulness, escalating complex issues to supervisors when necessary.\n"
-     "Conducted detailed audits of online campus maps for Big Ten universities, benchmarking their features and functionality against the University of Michigan’s online map system."),
-    
-    ("Judge/Mentor", "MHacks", "September 2024", None, "Ann Arbor, MI", 
-     "Served as a judge for over 50 innovative tech projects, providing detailed feedback on technical complexity, creativity, and execution.\n"
-     "Mentored 20+ teams of developers, guiding them through ideation, coding challenges, and project presentation.\n"
-     "Provided real-time technical support to hackathon participants, ensuring efficient problem-solving in a high-pressure environment."),
-    
-    ("Barista", "Sweetwaters Coffee & Tea", "November 2023", "April 2024", "Ann Arbor, MI", 
-     "Prepared and served high-quality coffee, tea, and specialty beverages while adhering to standardized recipes and customer preferences.\n"
-     "Managed inventory and restocked supplies, contributing to efficient operations and reducing downtime during peak hours.\n"
-     "Delivered exceptional customer service by creating a welcoming environment and addressing guest needs promptly and courteously."),
+    ("Clerk (Volunteer)", "Stony Brook University Medical Center", "September 2019", "March 2020", "Calverton, NY", 
+     "Assisted parents with completing and processing Social Security applications and birth certificates for newborns.\n"
+     "Performed regular comfort rounding, checking in on patients to ensure their needs were met and their stay was as comfortable as possible.\n"
+     "Ensured compliance by verifying that all newborns received required immunizations before discharge."),
     
     ("Lifeguard", "Palace Entertainment", "July 2021", "August 2021", "Calverton, NY", 
      "Monitored pool and surrounding areas to ensure safety, enforcing rules and regulations to prevent accidents and injuries.\n"
      "Responded promptly to emergencies, administering CPR, first aid, and life-saving techniques to individuals in need.\n"
      "Delivered clear and effective communication to patrons regarding pool policies and safety protocols."),
     
-    ("Clerk (Volunteer)", "Stony Brook University Medical Center", "September 2019", "March 2020", "Calverton, NY", 
-     "Assisted parents with completing and processing Social Security applications and birth certificates for newborns.\n"
-     "Performed regular comfort rounding, checking in on patients to ensure their needs were met and their stay was as comfortable as possible.\n"
-     "Ensured compliance by verifying that all newborns received required immunizations before discharge.")
+    ("Barista", "Sweetwaters Coffee & Tea", "November 2023", "April 2024", "Ann Arbor, MI", 
+     "Prepared and served high-quality coffee, tea, and specialty beverages while adhering to standardized recipes and customer preferences.\n"
+     "Managed inventory and restocked supplies, contributing to efficient operations and reducing downtime during peak hours.\n"
+     "Delivered exceptional customer service by creating a welcoming environment and addressing guest needs promptly and courteously."),
+    
+    ("Judge/Mentor", "MHacks", "September 2024", None, "Ann Arbor, MI", 
+     "Served as a judge for over 50 innovative tech projects, providing detailed feedback on technical complexity, creativity, and execution.\n"
+     "Mentored 20+ teams of developers, guiding them through ideation, coding challenges, and project presentation.\n"
+     "Provided real-time technical support to hackathon participants, ensuring efficient problem-solving in a high-pressure environment."),
+    
+    ("Information Assistant", "University of Michigan", "April 2024", "Present", "Ann Arbor, MI", 
+     "Provided accurate and timely information to students, staff, and visitors regarding campus events, resources, and services.\n"
+     "Addressed caller concerns with empathy and resourcefulness, escalating complex issues to supervisors when necessary.\n"
+     "Conducted detailed audits of online campus maps for Big Ten universities, benchmarking their features and functionality against the University of Michigan’s online map system.")
 ]
 
 for experience in other_experiences:
@@ -371,6 +387,20 @@ for project in projects:
     ''', project)
 
 ####################################### PROJECTS ########################################
+####################################### LOGIN ########################################
+load_dotenv()
+password = os.getenv('PASSWORD')
+hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS password (
+    password TEXT NOT NULL
+)
+''')
+
+cursor.execute('INSERT INTO password (password) VALUES (?)', (hashed_password,))
+
+
+####################################### LOGIN ########################################
 ####################################### BLOG AND PHILOSOPHY #######################################
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS blog_entries (
