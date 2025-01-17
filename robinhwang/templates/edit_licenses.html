@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Licenses and Certifications</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/basic.css') }}">
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <section class="section is-medium">
+        <div class="container">
+            <h1 class="title has-text-centered">Edit Licenses and Certifications</h1>
+            <p class="subtitle has-text-centered">Manage your licenses and certifications below.</p>
+
+            <div class="buttons has-addons is-centered mb-5">
+                <a href="{{ url_for('admin.add_license') }}" class="button is-success">Add License</a>
+            </div>
+
+            <div class="columns is-multiline">
+                {% for license in licenses %}
+                <div class="column is-one-third">
+                    <div class="card">
+                        <div class="card-content has-text-centered">
+                            <figure class="image is-128x128 is-inline-block">
+                                <img src="{{ url_for('static', filename='uploads/' + license[5]) }}" alt="{{ license[1] }}">
+                            </figure>
+                            <p class="title">{{ license[1] }}</p> <!-- Title -->
+                            <p class="subtitle">{{ license[2] }}</p> <!-- Issuer -->
+                            <p>Issued: {{ license[3] }}</p> <!-- Issue Date -->
+                            {% if license[4] %}
+                            <p>Expires: {{ license[4] }}</p> <!-- Expiration Date -->
+                            {% endif %}
+                        </div>
+                        <footer class="card-footer">
+                            <a href="{{ url_for('admin.edit_license', license_id=license[0]) }}" class="card-footer-item button is-link is-light">Edit</a>
+
+                            <form action="{{ url_for('admin.delete_license', license_id=license[0]) }}" method="POST" style="display: inline;">
+                                <button type="submit" class="card-footer-item button is-danger is-light"
+                                        onclick="return confirm('Are you sure you want to delete this license?');">
+                                    Delete
+                                </button>
+                            </form>
+                        </footer>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+</body>
+
+</html>

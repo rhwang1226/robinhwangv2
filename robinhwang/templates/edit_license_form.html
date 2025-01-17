@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit License</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/basic.css') }}">
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <section class="section is-medium">
+        <div class="container">
+            <h1 class="title">Edit License</h1>
+            <form action="{{ url_for('admin.edit_license', license_id=license[0]) }}" method="POST">
+                <div class="field">
+                    <label class="label">Title</label>
+                    <div class="control">
+                        <input class="input" type="text" name="title" value="{{ license[1] }}" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Issuer</label>
+                    <div class="control">
+                        <input class="input" type="text" name="issuer" value="{{ license[2] }}" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Issue Date</label>
+                    <div class="control">
+                        <input class="input" type="text" name="issue_date" value="{{ license[3] }}" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Expiration Date</label>
+                    <div class="control">
+                        <input class="input" type="text" name="expiration_date" value="{{ license[4] }}">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Icon Path</label>
+                    <div class="control">
+                        <input class="input" type="text" name="icon_path" value="{{ license[5] }}" required>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <button class="button is-link" type="submit">Update License</button>
+                    <a href="{{ url_for('admin.edit_licenses') }}" class="button is-light">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+</body>
+
+</html>

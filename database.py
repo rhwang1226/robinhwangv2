@@ -179,12 +179,12 @@ for conference in conference_entries:
 
 # Insert data into `licenses_and_certifications`
 licenses_and_certifications_entries = [
-    ("Lifeguard Certification", "Jeff Ellis and Associates, Inc.", "July 2021", "July 2022", "uploads/jeffellis.png"),
-    ("Standard First Aid, CPR and AED", "Jeff Ellis and Associates, Inc.", "July 2021", "July 2022", "uploads/jeffellis.png"),
-    ("Seal of Biliteracy - English and Spanish", "New York State Department of Education", "May 2022", None, "uploads/nysed.png"),
-    ("Driver's License - Class D", "New York State Department of Motor Vehicles", "June 2022", "December 2025", "uploads/dmv.png"),
-    ("IB Diploma", "International Baccalaureate Organization", "July 2022", None, "uploads/ib.png"),
-    ("OLCF Hands-On HPC", "Oak Ridge National Laboratory", "December 2024", None, "uploads/ornl.png")
+    ("Lifeguard Certification", "Jeff Ellis and Associates, Inc.", "July 2021", "July 2022", "jeffellis.png"),
+    ("Standard First Aid, CPR and AED", "Jeff Ellis and Associates, Inc.", "July 2021", "July 2022", "jeffellis.png"),
+    ("Seal of Biliteracy - English and Spanish", "New York State Department of Education", "May 2022", None, "nysed.png"),
+    ("Driver's License - Class D", "New York State Department of Motor Vehicles", "June 2022", "December 2025", "dmv.png"),
+    ("IB Diploma", "International Baccalaureate Organization", "July 2022", None, "ib.png"),
+    ("OLCF Hands-On HPC", "Oak Ridge National Laboratory", "December 2024", None, "ornl.png")
 ]
 
 for license in licenses_and_certifications_entries:

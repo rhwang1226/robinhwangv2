@@ -241,3 +241,292 @@ def delete_course(course_id):
 
     flash('Coursework deleted successfully!', 'success')
     return redirect(url_for('admin.edit_coursework'))
+
+####################################### CONFERENCE MANAGEMENT ##############################################
+# Fetch all conferences
+def get_all_conferences():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, title, role, year, description, image_path FROM conference_management_experience")
+    conferences = cursor.fetchall()
+    conn.close()
+    return conferences
+
+# Fetch a specific conference by ID
+def get_conference_by_id(conference_id):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, title, role, year, description, image_path FROM conference_management_experience WHERE id = ?", (conference_id,))
+    conference = cursor.fetchone()
+    conn.close()
+    return conference
+
+# Route to display all conferences
+@admin_views.route('/admin/edit_conferences', methods=['GET'])
+@login_required
+def edit_conferences():
+    conferences = get_all_conferences()
+    return render_template('edit_conferences.html', conferences=conferences)
+
+# Route to add a new conference
+@admin_views.route('/admin/add_conference', methods=['GET', 'POST'])
+@login_required
+def add_conference():
+    if request.method == 'POST':
+        title = request.form['title']
+        role = request.form['role']
+        year = request.form['year']
+        description = request.form['description']
+        image_path = request.form['image_path']  # File path to the uploaded image.
+
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO conference_management_experience (title, role, year, description, image_path)
+            VALUES (?, ?, ?, ?, ?)
+        """, (title, role, year, description, image_path))
+        conn.commit()
+        conn.close()
+
+        flash('Conference added successfully!', 'success')
+        return redirect(url_for('admin.edit_conferences'))
+
+    return render_template('add_conference.html')
+
+# Route to edit an existing conference
+@admin_views.route('/admin/edit_conference/<int:conference_id>', methods=['GET', 'POST'])
+@login_required
+def edit_conference(conference_id):
+    if request.method == 'POST':
+        title = request.form['title']
+        role = request.form['role']
+        year = request.form['year']
+        description = request.form['description']
+        image_path = request.form['image_path']
+
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE conference_management_experience
+            SET title = ?, role = ?, year = ?, description = ?, image_path = ?
+            WHERE id = ?
+        """, (title, role, year, description, image_path, conference_id))
+        conn.commit()
+        conn.close()
+
+        flash('Conference updated successfully!', 'success')
+        return redirect(url_for('admin.edit_conferences'))
+
+    conference = get_conference_by_id(conference_id)
+    if not conference:
+        flash('Conference not found!', 'danger')
+        return redirect(url_for('admin.edit_conferences'))
+
+    return render_template('edit_conference_form.html', conference=conference)
+
+# Route to delete a conference
+@admin_views.route('/admin/delete_conference/<int:conference_id>', methods=['POST'])
+@login_required
+def delete_conference(conference_id):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM conference_management_experience WHERE id = ?", (conference_id,))
+    conn.commit()
+    conn.close()
+
+    flash('Conference deleted successfully!', 'success')
+    return redirect(url_for('admin.edit_conferences'))
+
+####################################### LICENSES AND CERTIFICATIONS ##############################################
+
+# Fetch all licenses and certifications
+def get_all_licenses_and_certifications():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, title, issuer, issue_date, expiration_date, icon_path FROM licenses_and_certifications")
+    licenses = cursor.fetchall()
+    conn.close()
+    return licenses
+
+# Fetch a specific license or certification by ID
+def get_license_by_id(license_id):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, title, issuer, issue_date, expiration_date, icon_path FROM licenses_and_certifications WHERE id = ?", (license_id,))
+    license = cursor.fetchone()
+    conn.close()
+    return license
+
+# Route to display all licenses and certifications
+@admin_views.route('/admin/edit_licenses', methods=['GET'])
+@login_required
+def edit_licenses():
+    licenses = get_all_licenses_and_certifications()
+    return render_template('edit_licenses.html', licenses=licenses)
+
+# Route to add a new license or certification
+@admin_views.route('/admin/add_license', methods=['GET', 'POST'])
+@login_required
+def add_license():
+    if request.method == 'POST':
+        title = request.form['title']
+        issuer = request.form['issuer']
+        issue_date = request.form['issue_date']
+        expiration_date = request.form.get('expiration_date')  # Optional
+        icon_path = request.form['icon_path']  # File path to the uploaded icon.
+
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO licenses_and_certifications (title, issuer, issue_date, expiration_date, icon_path)
+            VALUES (?, ?, ?, ?, ?)
+        """, (title, issuer, issue_date, expiration_date, icon_path))
+        conn.commit()
+        conn.close()
+
+        flash('License or Certification added successfully!', 'success')
+        return redirect(url_for('admin.edit_licenses'))
+
+    return render_template('add_license.html')
+
+# Route to edit an existing license or certification
+@admin_views.route('/admin/edit_license/<int:license_id>', methods=['GET', 'POST'])
+@login_required
+def edit_license(license_id):
+    if request.method == 'POST':
+        title = request.form['title']
+        issuer = request.form['issuer']
+        issue_date = request.form['issue_date']
+        expiration_date = request.form.get('expiration_date')  # Optional
+        icon_path = request.form['icon_path']
+
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE licenses_and_certifications
+            SET title = ?, issuer = ?, issue_date = ?, expiration_date = ?, icon_path = ?
+            WHERE id = ?
+        """, (title, issuer, issue_date, expiration_date, icon_path, license_id))
+        conn.commit()
+        conn.close()
+
+        flash('License or Certification updated successfully!', 'success')
+        return redirect(url_for('admin.edit_licenses'))
+
+    license = get_license_by_id(license_id)
+    if not license:
+        flash('License or Certification not found!', 'danger')
+        return redirect(url_for('admin.edit_licenses'))
+
+    return render_template('edit_license_form.html', license=license)
+
+# Route to delete a license or certification
+@admin_views.route('/admin/delete_license/<int:license_id>', methods=['POST'])
+@login_required
+def delete_license(license_id):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM licenses_and_certifications WHERE id = ?", (license_id,))
+    conn.commit()
+    conn.close()
+
+    flash('License or Certification deleted successfully!', 'success')
+    return redirect(url_for('admin.edit_licenses'))
+
+####################################### OTHER EXPERIENCES ##############################################
+
+# Fetch all other experiences
+def get_all_other_experiences():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, title, company, start_date, end_date, location, description FROM other_experience")
+    experiences = cursor.fetchall()
+    conn.close()
+    return experiences
+
+# Fetch a specific other experience by ID
+def get_other_experience_by_id(exp_id):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, title, company, start_date, end_date, location, description FROM other_experience WHERE id = ?", (exp_id,))
+    experience = cursor.fetchone()
+    conn.close()
+    return experience
+
+# Route to display all other experiences
+@admin_views.route('/admin/edit_other_experiences', methods=['GET'])
+@login_required
+def edit_other_experiences():
+    experiences = get_all_other_experiences()
+    return render_template('edit_other_experiences.html', experiences=experiences)
+
+# Route to add a new other experience
+@admin_views.route('/admin/add_other_experience', methods=['GET', 'POST'])
+@login_required
+def add_other_experience():
+    if request.method == 'POST':
+        title = request.form['title']
+        company = request.form['company']
+        start_date = request.form['start_date']
+        end_date = request.form.get('end_date')  # Optional
+        location = request.form['location']
+        description = request.form['description']
+
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO other_experience (title, company, start_date, end_date, location, description)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (title, company, start_date, end_date, location, description))
+        conn.commit()
+        conn.close()
+
+        flash('Other Experience added successfully!', 'success')
+        return redirect(url_for('admin.edit_other_experiences'))
+
+    return render_template('add_other_experience.html')
+
+# Route to edit an existing other experience
+@admin_views.route('/admin/edit_other_experience/<int:exp_id>', methods=['GET', 'POST'])
+@login_required
+def edit_other_experience(exp_id):
+    if request.method == 'POST':
+        title = request.form['title']
+        company = request.form['company']
+        start_date = request.form['start_date']
+        end_date = request.form.get('end_date')  # Optional
+        location = request.form['location']
+        description = request.form['description']
+
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("""
+            UPDATE other_experience
+            SET title = ?, company = ?, start_date = ?, end_date = ?, location = ?, description = ?
+            WHERE id = ?
+        """, (title, company, start_date, end_date, location, description, exp_id))
+        conn.commit()
+        conn.close()
+
+        flash('Other Experience updated successfully!', 'success')
+        return redirect(url_for('admin.edit_other_experiences'))
+
+    experience = get_other_experience_by_id(exp_id)
+    if not experience:
+        flash('Other Experience not found!', 'danger')
+        return redirect(url_for('admin.edit_other_experiences'))
+
+    return render_template('edit_other_experience_form.html', experience=experience)
+
+# Route to delete an other experience
+@admin_views.route('/admin/delete_other_experience/<int:exp_id>', methods=['POST'])
+@login_required
+def delete_other_experience(exp_id):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM other_experience WHERE id = ?", (exp_id,))
+    conn.commit()
+    conn.close()
+
+    flash('Other Experience deleted successfully!', 'success')
+    return redirect(url_for('admin.edit_other_experiences'))

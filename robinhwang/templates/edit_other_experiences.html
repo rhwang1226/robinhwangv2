@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Other Experiences</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/basic.css') }}">
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <section class="section is-medium">
+        <div class="container">
+            <h1 class="title has-text-centered">Edit Other Experiences</h1>
+            <p class="subtitle has-text-centered">Manage your other experiences below.</p>
+
+            <div class="buttons has-addons is-centered mb-5">
+                <a href="{{ url_for('admin.add_other_experience') }}" class="button is-success">Add Other Experience</a>
+            </div>
+
+            <div class="columns is-multiline">
+                {% for exp in experiences %}
+                <div class="column is-one-third">
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="title">{{ exp[1] }}</p> <!-- Title -->
+                            <p class="subtitle">{{ exp[2] }}</p> <!-- Company -->
+                            <p>{{ exp[3] }} - {{ exp[4] }}</p> <!-- Start and End Dates -->
+                            <p>{{ exp[5] }}</p> <!-- Location -->
+                            <p>{{ exp[6] }}</p> <!-- Description -->
+                        </div>
+                        <footer class="card-footer">
+                            <a href="{{ url_for('admin.edit_other_experience', exp_id=exp[0]) }}" class="card-footer-item button is-link is-light">Edit</a>
+
+                            <form action="{{ url_for('admin.delete_other_experience', exp_id=exp[0]) }}" method="POST" style="display: inline;">
+                                <button type="submit" class="card-footer-item button is-danger is-light"
+                                        onclick="return confirm('Are you sure you want to delete this experience?');">
+                                    Delete
+                                </button>
+                            </form>
+                        </footer>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+</body>
+
+</html>

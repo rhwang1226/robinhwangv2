@@ -167,7 +167,7 @@
             <div class="columns is-multiline">
                 {% for license in licenses_and_certifications %}
                     <div class="column is-one-third">
-                        <img src="{{ url_for('static', filename=license[4]) }}" alt="{{ license[0] }} Icon" class="lc-icon">
+                        <img src="{{ url_for('static', filename='uploads/' + license[4]) }}" alt="{{ license[0] }} Icon" class="lc-icon">
                         <p class="monasans-bold">{{ license[0] }}</p>
                         <p>{{ license[1] }}</p>
                         <p>Issued {{ license[2] }}</p>
