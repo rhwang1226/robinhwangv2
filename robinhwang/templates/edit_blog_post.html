@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Blog Post</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/basic.css') }}">
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <section class="section is-medium">
+        <div class="container monasans">
+            <h1 class="title has-text-centered monasans-bold">Edit Blog Post</h1>
+
+            <form action="{{ url_for('admin.edit_blog_post', post_id=post[0]) }}" method="POST">
+                <div class="field">
+                    <label class="label">Title</label>
+                    <div class="control">
+                        <input class="input monasans" type="text" name="title" value="{{ post[1] }}" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Content</label>
+                    <div class="control">
+                        <textarea class="textarea monasans area" name="content" required rows="10">{{ post[2] }}</textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Visibility</label>
+                    <div class="control monasans">
+                        <div class="select">
+                            <select name="visibility">
+                                <option value="public" {% if post[3] == 'public' %}selected{% endif %}>Public</option>
+                                <option value="unlisted" {% if post[3] == 'unlisted' %}selected{% endif %}>Unlisted</option>
+                                <option value="private" {% if post[3] == 'private' %}selected{% endif %}>Private</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <button class="button is-link" type="submit">Update Post</button>
+                    <a href="{{ url_for('admin.manage_blog') }}" class="button is-light">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+</body>
+
+</html>

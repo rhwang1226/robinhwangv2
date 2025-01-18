@@ -33,3 +33,7 @@
     font-family: 'Brittany Signature';
     font-weight: 700;
 }
+
+.area {
+    min-height: 50vh;
+}

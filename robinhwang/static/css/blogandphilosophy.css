@@ -45,14 +45,57 @@ p {
 }
 
 /* Blog and philosophy */
+.blog-section {
+    background-color: black;
+    min-height: 80vh;
+}
+
 .blogandphilosophy {
     background-color: black;
+    min-height: 80vh;
 }
 
 .bp-title {
-
+    background: linear-gradient(to left, #f5ffe1, #aef727);    
+    /* Gradient colors */
+    -webkit-background-clip: text;
+    /* Clip the background to text */
+    -webkit-text-fill-color: transparent;
+    /* Make the text color transparent */
 }
 
 .box {
-    background-color: black;
+    background-color: #141414;
+    color: white;
+}
+
+strong {
+    font-size: 1.1rem;
+    color: white;
+}
+
+em {
+    font-size: 1.1rem;
+    color: white;
+}
+
+.preview {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 4.5em; /* Adjust based on line height */
+    font-size: 0.5rem;
+}
+
+.input::placeholder {
+    color: rgb(168, 168, 168);
+    /* Change this to your desired color */
+    opacity: 1;
+    /* Optional: Makes sure the color is fully opaque */
+}
+
+.timestamp {
+    color:#a5a5a5
 }

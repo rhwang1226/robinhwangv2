@@ -1,6 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from functools import wraps
 import sqlite3
+from datetime import datetime
+import pytz
+import uuid
 
 admin_views = Blueprint('admin', __name__)
 
@@ -530,3 +533,180 @@ def delete_other_experience(exp_id):
 
     flash('Other Experience deleted successfully!', 'success')
     return redirect(url_for('admin.edit_other_experiences'))
+
+####################################### BLOG ##############################################
+def generate_slug(title):
+    """
+    Generate a unique slug using the title and a UUID.
+    """
+    return f"{title.replace(' ', '-').lower()}-{uuid.uuid4().hex[:8]}"
+
+def format_datetime(timestamp):
+    """
+    Converts a datetime string into a human-readable format and adjusts to Eastern Time (ET).
+    Handles timestamps with and without fractional seconds.
+    """
+    try:
+        # Try parsing with fractional seconds
+        dt = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S.%f")
+    except ValueError:
+        # Fallback to parsing without fractional seconds
+        dt = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
+    
+    # Assuming the input timestamp is in UTC, convert to ET
+    utc = pytz.utc
+    eastern = pytz.timezone("US/Eastern")
+    dt = utc.localize(dt).astimezone(eastern)
+    
+    return dt.strftime("%B %d, %Y • %I:%M %p ET")
+
+
+def get_all_blog_posts():
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT id, title, content, visibility, created_at, updated_at, slug
+        FROM blog_posts
+        ORDER BY created_at DESC
+    """)
+    posts = cursor.fetchall()
+    conn.close()
+
+    # Format the dates for each post
+    formatted_posts = [
+        (post[0], post[1], post[2], post[3],
+         format_datetime(post[4]),  # Format created_at
+         format_datetime(post[5]) if post[5] else None,
+         post[6])  # Format updated_at (if exists),
+        for post in posts
+    ]
+    return formatted_posts
+
+def get_blog_post_by_id(post_id):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT id, title, content, visibility, created_at, updated_at, slug
+        FROM blog_posts
+        WHERE id = ?
+    """, (post_id,))
+    post = cursor.fetchone()
+    conn.close()
+
+    if post:
+        return (
+            post[0], post[1], post[2], post[3],
+            format_datetime(post[4]),  # Format created_at
+            format_datetime(post[5]) if post[5] else None,  # Format updated_at (if exists),
+            post[6]
+        )
+    return None
+
+# Route to display all posts (for logged-in admin)
+@admin_views.route('/admin/manage_blog', methods=['GET'])
+@login_required
+def manage_blog():
+    posts = get_all_blog_posts()
+    return render_template('manage_blog.html', posts=posts)
+
+# Route to add a new blog post
+@admin_views.route('/admin/add_blog_post', methods=['GET', 'POST'])
+@login_required
+def add_blog_post():
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+        visibility = request.form['visibility']
+
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        slug = generate_slug(title)
+        cursor.execute("""
+            INSERT INTO blog_posts (title, content, visibility, slug)
+            VALUES (?, ?, ?, ?)
+        """, (title, content, visibility, slug))
+        conn.commit()
+        conn.close()
+
+        flash('Blog post added successfully!', 'success')
+        return redirect(url_for('admin.manage_blog'))
+
+    return render_template('add_blog_post.html')
+
+
+@admin_views.route('/admin/edit_blog_post/<int:post_id>', methods=['GET', 'POST'])
+@login_required
+def edit_blog_post(post_id):
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+        visibility = request.form['visibility']
+        updated_at = datetime.utcnow()  # Store UTC time in the database
+
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        
+        # Update existing blog post
+        cursor.execute("""
+            UPDATE blog_posts
+            SET title = ?, content = ?, visibility = ?, updated_at = ?
+            WHERE id = ?
+        """, (title, content, visibility, updated_at, post_id))
+        conn.commit()
+        conn.close()
+
+        flash('Blog post updated successfully!', 'success')
+        return redirect(url_for('admin.manage_blog'))
+
+    # Fetch the blog post to prefill the edit form
+    post = get_blog_post_by_id(post_id)
+    if not post:
+        flash('Blog post not found!', 'danger')
+        return redirect(url_for('admin.manage_blog'))
+
+    return render_template('edit_blog_post.html', post=post)
+
+# Route to delete a blog post
+@admin_views.route('/admin/delete_blog_post/<int:post_id>', methods=['POST'])
+@login_required
+def delete_blog_post(post_id):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM blog_posts WHERE id = ?", (post_id,))
+    conn.commit()
+    conn.close()
+
+    flash('Blog post deleted successfully!', 'success')
+    return redirect(url_for('admin.manage_blog'))
+
+@admin_views.route('/blog/<slug>', methods=['GET'])
+def view_blog_post(slug):
+    post = None
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT id, title, content, visibility, created_at, updated_at
+        FROM blog_posts
+        WHERE slug = ?
+    """, (slug,))
+    row = cursor.fetchone()
+    conn.close()
+
+    if row:
+        post = {
+            "id": row[0],
+            "title": row[1],
+            "content": row[2],
+            "visibility": row[3],
+            "created_at": format_datetime(row[4]),
+            "updated_at": format_datetime(row[5]) if row[5] else None
+        }
+        print(post)
+
+    # Check visibility
+    if not post or (post["visibility"] == "private" and not session.get("authenticated")):
+        flash("Blog post not found or you do not have permission to view it.", "danger")
+        return redirect(url_for("blogandphilosophy.blogandphilosophy"))
+
+    return render_template("view_blog_post.html", post=post)
+

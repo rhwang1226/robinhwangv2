@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Blog Post</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/basic.css') }}">
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title has-text-centered">Add Blog Post</h1>
+
+            <form action="{{ url_for('admin.add_blog_post') }}" method="POST">
+                <div class="field">
+                    <label class="label">Title</label>
+                    <div class="control">
+                        <input class="input" type="text" name="title" placeholder="Enter blog post title" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Content</label>
+                    <div class="control">
+                        <textarea class="textarea" name="content" placeholder="Write your blog post content here" required></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Visibility</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="visibility">
+                                <option value="public">Public</option>
+                                <option value="unlisted">Unlisted</option>
+                                <option value="private" selected>Private</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <button class="button is-link" type="submit">Add Post</button>
+                    <a href="{{ url_for('admin.manage_blog') }}" class="button is-light">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+</body>
+
+</html>

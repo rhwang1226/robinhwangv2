@@ -17,25 +17,39 @@
 
     {% include 'navbar.html' %}
     <!-- Blog Section -->
-    <section class="section is-medium blog-section blogandphilosophy">
+    <section class="section is-medium blog-section">
         <div class="container">
             <p class="is-size-1 pb-5 monasans-bold has-text-centered bp-title">Blog & Philosophy</p>
 
-            {% for entry in blog_entries %}
-                <div class="box">
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="is-size-4 monasans-bold">{{ entry[0] }}</p>
-                                <p class="is-size-6 has-text-grey">{{ entry[2] }}</p>
-                                <p>{{ entry[1] }}</p>
-                            </div>
-                        </div>
-                    </article>
+            <p class="is-size-5 pb-5 monasans-bold has-text-centered">Journey through ideas, stories, and
+                reflections—where every word weaves a connection and every post sparks inspiration.</p>
+
+            <!-- Search Bar -->
+            <div class="field has-addons is-centered pb-5">
+                <div class="control" style="width: 100%;">
+                    <input class="input monasans" type="text" placeholder="Search blog posts..." id="searchBar"
+                        style="background-color: #141414; color: #fff; border: 1px solid #333;">
                 </div>
+                <div class="control">
+                    <button class="button is-dark" id="searchButton">Search</button>
+                </div>
+            </div>
+
+            {% for post in posts %}
+            <a href="{{ url_for('admin.view_blog_post', slug=post[6]) }}" class="blog-link">
+                <div class="box">
+                    <h2 class="monasans-bold is-size-4 pb-3">{{ post[1] }}</h2>
+                    <p class="monasans-bold is-size-6 pb-3">{{ post[4] }}</p>
+                    <div class="content preview is-size-7">
+                        {{ post[2] | markdown | safe }}
+                    </div>
+                </div>
+            </a>
+            
             {% endfor %}
         </div>
     </section>
+
 
     {% include 'footer.html' %}
 

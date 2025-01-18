@@ -5,6 +5,7 @@ from robinhwang.views.projects import projects_views
 from robinhwang.views.blogandphilosophy import blogandphilosophy_views
 from robinhwang.views.login import login_views
 from robinhwang.views.admin import admin_views
+import markdown
 
 import os
 from dotenv import load_dotenv
@@ -24,4 +25,10 @@ def create_app():
     app.register_blueprint(login_views)
     app.register_blueprint(admin_views)
 
+    # Register Markdown filter
+    @app.template_filter('markdown')
+    def markdown_filter(content):
+        return markdown.markdown(content, extensions=['fenced_code', 'tables'])
+
     return app
+

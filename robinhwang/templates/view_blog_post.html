@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post['title'] }}</title>
+    <!-- Include Bulma and Custom Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blogandphilosophy.css') }}">
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <section class="section is-medium blogandphilosophy">
+        <div class="container">
+            <h1 class="is-size-1 monasans-bold pb-3">{{ post['title'] }}</h1>
+            <p class="is-size-6 timestamp">Published On: {{ post['created_at'] }}</p>
+            <p class="is-size-6 timestamp pb-3">Last Updated: {{ post['updated_at'] if post['updated_at'] else 'Never' }}</p>
+            <div class="content">
+                {{ post['content'] | markdown | safe }}
+            </div>        
+            <a href="{{ url_for('blogandphilosophy.blogandphilosophy') }}" class="button is-dark">Back to Blog</a>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+</body>
+
+</html>
