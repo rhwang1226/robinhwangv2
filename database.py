@@ -5,7 +5,7 @@ import os
 from dotenv import load_dotenv
 
 # Database file path
-db_path = "tmp/robinhwang.db"
+db_path = os.environ.get("DATABASE_URL")
 images_dir = "robinhwang/static"
 
 # Connect to SQLite database (or create it if it doesn't exist)

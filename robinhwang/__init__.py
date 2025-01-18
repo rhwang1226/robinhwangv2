@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 from robinhwang.views.index import index_views
 from robinhwang.views.educationandexperience import educationandexperience_views
 from robinhwang.views.projects import projects_views
@@ -16,6 +17,13 @@ def create_app():
     load_dotenv()
 
     app.secret_key = os.getenv('SECRET_KEY')
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+
+    db = SQLAlchemy()
+    db.init_app(app)
+
+    # postgresql://robinhwang_ii4m_user:kWpv75zAJoKKEoEpYQnqXv4OK0mheuWi@dpg-cu5kmslsvqrc738942j0-a.ohio-postgres.render.com/robinhwang_ii4m
 
     # Register Blueprints
     app.register_blueprint(index_views)
