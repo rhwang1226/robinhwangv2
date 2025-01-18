@@ -268,8 +268,7 @@ other_experiences = [
 execute_values(
     cursor,
     '''
-        INSERT INTO other_experience (title, company, start_date, end_date, location, description)
-        VALUES (?, ?, ?, ?, ?, ?) %s
+        INSERT INTO other_experience (title, company, start_date, end_date, location, description) %s
     ''',
     other_experiences
 )
@@ -428,11 +427,13 @@ projects = [
 ]
 
 # Insert project data into the `projects` table
-for project in projects:
-    cursor.execute('''
-        INSERT INTO projects (title, description, technologies, github_link)
-        VALUES (?, ?, ?, ?)
-    ''', project)
+execute_values(
+    cursor,
+    '''
+        INSERT INTO projects (title, description, technologies, github_link) %s
+    ''',
+    projects
+)
 
 ####################################### PROJECTS ########################################
 ####################################### LOGIN ########################################
