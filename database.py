@@ -268,7 +268,7 @@ other_experiences = [
 execute_values(
     cursor,
     '''
-        INSERT INTO other_experience (title, company, start_date, end_date, location, description) %s
+        INSERT INTO other_experience (title, company, start_date, end_date, location, description) VALUES %s
     ''',
     other_experiences
 )
@@ -430,7 +430,7 @@ projects = [
 execute_values(
     cursor,
     '''
-        INSERT INTO projects (title, description, technologies, github_link) %s
+        INSERT INTO projects (title, description, technologies, github_link) VALUES %s
     ''',
     projects
 )
