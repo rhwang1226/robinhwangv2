@@ -1,22 +1,24 @@
-import sqlite3
+import psycopg2
+from psycopg2.extras import execute_values
 import bcrypt
-from datetime import datetime
 import os
 from dotenv import load_dotenv
 
-# Database file path
-db_path = os.environ.get("DATABASE_URL")
-images_dir = "robinhwang/static"
+# Load environment variables
+load_dotenv()
 
-# Connect to SQLite database (or create it if it doesn't exist)
-conn = sqlite3.connect(db_path)
+# Database connection string
+db_url = os.getenv("DATABASE_URL")
+
+# Connect to PostgreSQL database
+conn = psycopg2.connect(db_url)
 cursor = conn.cursor()
 
-####################################### EDUCATION AND EXPERIENCE ########################################
+####################################### TABLE CREATION ########################################
 # Create the `relevant_experience` table
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS relevant_experience (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     company TEXT NOT NULL,
     start_date TEXT,
@@ -29,7 +31,7 @@ CREATE TABLE IF NOT EXISTS relevant_experience (
 # Create the `coursework` table
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS coursework (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     institution TEXT NOT NULL,
     start_date TEXT,
@@ -41,7 +43,7 @@ CREATE TABLE IF NOT EXISTS coursework (
 # Create the `conference_management_experience` table
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS conference_management_experience (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     role TEXT NOT NULL,
     year INTEGER NOT NULL,
@@ -53,7 +55,7 @@ CREATE TABLE IF NOT EXISTS conference_management_experience (
 # Create the `licenses_and_certifications` table
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS licenses_and_certifications (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     issuer TEXT NOT NULL,
     issue_date TEXT NOT NULL,
@@ -62,15 +64,47 @@ CREATE TABLE IF NOT EXISTS licenses_and_certifications (
 )
 ''')
 
+# Create the `other_experience` table
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS other_experience (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     company TEXT NOT NULL,
     start_date TEXT NOT NULL,
     end_date TEXT,
     location TEXT,
     description TEXT
+)
+''')
+
+# Create the `projects` table
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS projects (
+    id SERIAL PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    technologies TEXT NOT NULL,
+    github_link TEXT
+)
+''')
+
+# Create the `blog_posts` table
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS blog_posts (
+    id SERIAL PRIMARY KEY,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    visibility TEXT CHECK(visibility IN ('public', 'unlisted', 'private')) DEFAULT 'private',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    slug TEXT
+)
+''')
+
+# Create the `password` table
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS password (
+    password TEXT NOT NULL
 )
 ''')
 
@@ -85,11 +119,14 @@ relevant_experiences = [
      "Developed ML models to predict beam properties and quantify the accuracy and robustness of these predictive models over time for the FACET-II injector.\nReplaced older simulation softwares for FACET-II, specifically using Impact-T in place of the General Particle Tracer (GPT) and using Bmad in place of Lucretia.\nRan start-to-end simulations of the FACET-II beamline.")
 ]
 
-for experience in relevant_experiences:
-    cursor.execute('''
+execute_values(
+    cursor,
+    '''
     INSERT INTO relevant_experience (title, company, start_date, end_date, location, description)
-    VALUES (?, ?, ?, ?, ?, ?)
-    ''', experience)
+    VALUES %s
+    ''',
+    relevant_experiences
+)
 
 # Insert data into `coursework`
 coursework_entries = [
@@ -150,11 +187,14 @@ coursework_entries = [
      "An exploration of parallel computing with GPUs, focusing on CUDA programming, memory models, parallel algorithms, and GPU microarchitecture. Topics include convolution, reduction patterns, atomic operations, sparse methods, and case studies in deep learning.")
 ]
 
-for course in coursework_entries:
-    cursor.execute('''
+execute_values(
+    cursor,
+    '''
     INSERT INTO coursework (title, institution, start_date, end_date, description)
-    VALUES (?, ?, ?, ?, ?)
-    ''', course)
+    VALUES %s
+    ''',
+    coursework_entries
+)
 
 # Save image files and insert data into `conference_management_experience`
 conference_entries = [
@@ -170,12 +210,14 @@ conference_entries = [
      "sasenatcon2024.jpg")
 ]
 
-for conference in conference_entries:
-    # Insert data into the table
-    cursor.execute('''
+execute_values(
+    cursor,
+    '''
     INSERT INTO conference_management_experience (title, role, year, description, image_path)
-    VALUES (?, ?, ?, ?, ?)
-    ''', (conference[0], conference[1], conference[2], conference[3], conference[4]))
+    VALUES %s
+    ''',
+    conference_entries
+)
 
 # Insert data into `licenses_and_certifications`
 licenses_and_certifications_entries = [
@@ -187,11 +229,14 @@ licenses_and_certifications_entries = [
     ("OLCF Hands-On HPC", "Oak Ridge National Laboratory", "December 2024", None, "ornl.png")
 ]
 
-for license in licenses_and_certifications_entries:
-    cursor.execute('''
-        INSERT INTO licenses_and_certifications (title, issuer, issue_date, expiration_date, icon_path)
-        VALUES (?, ?, ?, ?, ?)
-    ''', license)
+execute_values(
+    cursor,
+    '''
+    INSERT INTO licenses_and_certifications (title, issuer, issue_date, expiration_date, icon_path)
+    VALUES %s
+    ''',
+    licenses_and_certifications_entries
+)
 
 other_experiences = [
     ("Clerk (Volunteer)", "Stony Brook University Medical Center", "September 2019", "March 2020", "Calverton, NY", 
@@ -220,11 +265,14 @@ other_experiences = [
      "Conducted detailed audits of online campus maps for Big Ten universities, benchmarking their features and functionality against the University of Michigan’s online map system.")
 ]
 
-for experience in other_experiences:
-    cursor.execute('''
+execute_values(
+    cursor,
+    '''
         INSERT INTO other_experience (title, company, start_date, end_date, location, description)
         VALUES (?, ?, ?, ?, ?, ?)
-    ''', experience)
+    ''',
+    other_experiences
+)
 
 ####################################### EDUCATION AND EXPERIENCE ########################################
 ####################################### PROJECTS ########################################
@@ -397,7 +445,10 @@ CREATE TABLE IF NOT EXISTS password (
 )
 ''')
 
-cursor.execute('INSERT INTO password (password) VALUES (?)', (hashed_password,))
+cursor.execute('''
+INSERT INTO password (password)
+VALUES (%s)
+''', (hashed_password,))
 
 
 ####################################### LOGIN ########################################
@@ -429,11 +480,14 @@ blog_posts_entries = [
     )
 ]
 
-for post in blog_posts_entries:
-    cursor.execute('''
-        INSERT INTO blog_posts (title, content, visibility, slug)
-        VALUES (?, ?, ?, ?)
-    ''', post)
+execute_values(
+    cursor,
+    '''
+    INSERT INTO blog_posts (title, content, visibility, slug)
+    VALUES %s
+    ''',
+    blog_posts_entries
+)   
 
 # Commit changes and close connection
 conn.commit()
