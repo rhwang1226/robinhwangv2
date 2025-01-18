@@ -11,22 +11,18 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 # Function to format datetime
 def format_datetime(timestamp):
     """
-    Converts a datetime string into a human-readable format and adjusts to Eastern Time (ET).
-    Handles timestamps with and without fractional seconds.
+    Converts a datetime object into a human-readable format and adjusts to Eastern Time (ET).
     """
-    try:
-        # Try parsing with fractional seconds
-        dt = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S.%f")
-    except ValueError:
-        # Fallback to parsing without fractional seconds
-        dt = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
+    if not isinstance(timestamp, datetime):
+        raise TypeError("timestamp must be a datetime object")
 
     # Assuming the input timestamp is in UTC, convert to ET
     utc = pytz.utc
     eastern = pytz.timezone("US/Eastern")
-    dt = utc.localize(dt).astimezone(eastern)
+    dt = utc.localize(timestamp).astimezone(eastern)
 
     return dt.strftime("%B %d, %Y • %I:%M %p ET")
+
 
 @blogandphilosophy_views.route('/blogandphilosophy', methods=['GET'])
 def blogandphilosophy():
