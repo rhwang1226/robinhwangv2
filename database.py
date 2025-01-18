@@ -277,7 +277,7 @@ execute_values(
 ####################################### PROJECTS ########################################
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS projects (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     description TEXT NOT NULL,
     technologies TEXT NOT NULL, -- Comma-separated list of technologies
@@ -456,7 +456,7 @@ VALUES (%s)
 ####################################### BLOG AND PHILOSOPHY #######################################
 cursor.execute('''
 CREATE TABLE blog_posts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     content TEXT NOT NULL,
     visibility TEXT CHECK(visibility IN ('public', 'unlisted', 'private')) DEFAULT 'private',
