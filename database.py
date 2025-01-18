@@ -454,17 +454,6 @@ VALUES (%s)
 
 ####################################### LOGIN ########################################
 ####################################### BLOG AND PHILOSOPHY #######################################
-cursor.execute('''
-CREATE TABLE blog_posts (
-    id SERIAL PRIMARY KEY,
-    title TEXT NOT NULL,
-    content TEXT NOT NULL,
-    visibility TEXT CHECK(visibility IN ('public', 'unlisted', 'private')) DEFAULT 'private',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    slug TEXT
-)
-''')
 
 blog_posts_entries = [
     (
