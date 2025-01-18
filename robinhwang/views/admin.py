@@ -701,7 +701,6 @@ def view_blog_post(slug):
             "created_at": format_datetime(row[4]),
             "updated_at": format_datetime(row[5]) if row[5] else None
         }
-        print(post)
 
     # Check visibility
     if not post or (post["visibility"] == "private" and not session.get("authenticated")):
