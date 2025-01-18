@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS conference_management_experience (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     role TEXT NOT NULL,
-    year INTEGER NOT NULL,
+    year TEXT NOT NULL,
     description TEXT,
     image_path TEXT
 )
