@@ -1,13 +1,14 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from functools import wraps
-import sqlite3
+import psycopg2
 from datetime import datetime
 import pytz
 import uuid
+import os
 
 admin_views = Blueprint('admin', __name__)
 
-DB_PATH = 'robinhwang/data/robinhwang.db'
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Decorator to check login status
 def login_required(f):
@@ -42,11 +43,11 @@ def add_relevant_experience():
         location = request.form['location']
         description = request.form['description']
 
-        conn = sqlite3.connect(DB_PATH)
+        conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
         cursor.execute("""
             INSERT INTO relevant_experience (title, company, start_date, end_date, location, description)
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES (%s, %s, %s, %s, %s, %s)
         """, (title, company, start_date, end_date, location, description))
         conn.commit()
         conn.close()
@@ -60,7 +61,7 @@ def get_all_relevant_experiences():
     """
     Fetch all experiences from the database in descending order (newest first).
     """
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute("""
         SELECT id, title, company, start_date, end_date, location, description
@@ -75,9 +76,9 @@ def get_relevant_experience_by_id(exp_id):
     """
     Fetch a specific experience by ID.
     """
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
-    cursor.execute("SELECT id, title, company, start_date, end_date, location, description FROM relevant_experience WHERE id = ?", (exp_id,))
+    cursor.execute("SELECT id, title, company, start_date, end_date, location, description FROM relevant_experience WHERE id = %s", (exp_id,))
     experience = cursor.fetchone()
     conn.close()
     return experience
@@ -105,12 +106,12 @@ def edit_relevant_experience(exp_id):
         location = request.form['location']
         description = request.form['description']
 
-        conn = sqlite3.connect(DB_PATH)
+        conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
         cursor.execute("""
             UPDATE relevant_experience
-            SET title = ?, company = ?, start_date = ?, end_date = ?, location = ?, description = ?
-            WHERE id = ?
+            SET title = %s, company = %s, start_date = %s, end_date = %s, location = %s, description = %s
+            WHERE id = %s
         """, (title, company, start_date, end_date, location, description, exp_id))
         conn.commit()
         conn.close()
@@ -132,9 +133,9 @@ def delete_relevant_experience(exp_id):
     """
     Handles deleting a specific experience by ID.
     """
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM relevant_experience WHERE id = ?", (exp_id,))
+    cursor.execute("DELETE FROM relevant_experience WHERE id = %s", (exp_id,))
     conn.commit()
     conn.close()
 
@@ -149,7 +150,7 @@ def get_all_coursework():
     """
     Fetch all coursework from the database in descending order (newest first).
     """
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute("""
         SELECT id, title, institution, start_date, end_date, description
@@ -162,9 +163,9 @@ def get_all_coursework():
 
 # Fetch a specific course by ID
 def get_course_by_id(course_id):
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
-    cursor.execute("SELECT id, title, institution, start_date, end_date, description FROM coursework WHERE id = ?", (course_id,))
+    cursor.execute("SELECT id, title, institution, start_date, end_date, description FROM coursework WHERE id = %s", (course_id,))
     course = cursor.fetchone()
     conn.close()
     return course
@@ -187,11 +188,11 @@ def add_course():
         end_date = request.form['end_date']
         description = request.form['description']
 
-        conn = sqlite3.connect(DB_PATH)
+        conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
         cursor.execute("""
             INSERT INTO coursework (title, institution, start_date, end_date, description)
-            VALUES (?, ?, ?, ?, ?)
+            VALUES (%s, %s, %s, %s, %s)
         """, (title, institution, start_date, end_date, description))
         conn.commit()
         conn.close()
@@ -212,12 +213,12 @@ def edit_course(course_id):
         end_date = request.form['end_date']
         description = request.form['description']
 
-        conn = sqlite3.connect(DB_PATH)
+        conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
         cursor.execute("""
             UPDATE coursework
-            SET title = ?, institution = ?, start_date = ?, end_date = ?, description = ?
-            WHERE id = ?
+            SET title = %s, institution = %s, start_date = %s, end_date = %s, description = %s
+            WHERE id = %s
         """, (title, institution, start_date, end_date, description, course_id))
         conn.commit()
         conn.close()
@@ -236,9 +237,9 @@ def edit_course(course_id):
 @admin_views.route('/admin/delete_course/<int:course_id>', methods=['POST'])
 @login_required
 def delete_course(course_id):
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM coursework WHERE id = ?", (course_id,))
+    cursor.execute("DELETE FROM coursework WHERE id = %s", (course_id,))
     conn.commit()
     conn.close()
 
@@ -248,7 +249,7 @@ def delete_course(course_id):
 ####################################### CONFERENCE MANAGEMENT ##############################################
 # Fetch all conferences
 def get_all_conferences():
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute("SELECT id, title, role, year, description, image_path FROM conference_management_experience")
     conferences = cursor.fetchall()
@@ -257,9 +258,9 @@ def get_all_conferences():
 
 # Fetch a specific conference by ID
 def get_conference_by_id(conference_id):
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
-    cursor.execute("SELECT id, title, role, year, description, image_path FROM conference_management_experience WHERE id = ?", (conference_id,))
+    cursor.execute("SELECT id, title, role, year, description, image_path FROM conference_management_experience WHERE id = %s", (conference_id,))
     conference = cursor.fetchone()
     conn.close()
     return conference
@@ -282,11 +283,11 @@ def add_conference():
         description = request.form['description']
         image_path = request.form['image_path']  # File path to the uploaded image.
 
-        conn = sqlite3.connect(DB_PATH)
+        conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
         cursor.execute("""
             INSERT INTO conference_management_experience (title, role, year, description, image_path)
-            VALUES (?, ?, ?, ?, ?)
+            VALUES (%s, %s, %s, %s, %s)
         """, (title, role, year, description, image_path))
         conn.commit()
         conn.close()
@@ -307,12 +308,12 @@ def edit_conference(conference_id):
         description = request.form['description']
         image_path = request.form['image_path']
 
-        conn = sqlite3.connect(DB_PATH)
+        conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
         cursor.execute("""
             UPDATE conference_management_experience
-            SET title = ?, role = ?, year = ?, description = ?, image_path = ?
-            WHERE id = ?
+            SET title = %s, role = %s, year = %s, description = %s, image_path = %s
+            WHERE id = %s
         """, (title, role, year, description, image_path, conference_id))
         conn.commit()
         conn.close()
@@ -331,9 +332,9 @@ def edit_conference(conference_id):
 @admin_views.route('/admin/delete_conference/<int:conference_id>', methods=['POST'])
 @login_required
 def delete_conference(conference_id):
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM conference_management_experience WHERE id = ?", (conference_id,))
+    cursor.execute("DELETE FROM conference_management_experience WHERE id = %s", (conference_id,))
     conn.commit()
     conn.close()
 
@@ -344,7 +345,7 @@ def delete_conference(conference_id):
 
 # Fetch all licenses and certifications
 def get_all_licenses_and_certifications():
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute("SELECT id, title, issuer, issue_date, expiration_date, icon_path FROM licenses_and_certifications")
     licenses = cursor.fetchall()
@@ -353,9 +354,9 @@ def get_all_licenses_and_certifications():
 
 # Fetch a specific license or certification by ID
 def get_license_by_id(license_id):
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
-    cursor.execute("SELECT id, title, issuer, issue_date, expiration_date, icon_path FROM licenses_and_certifications WHERE id = ?", (license_id,))
+    cursor.execute("SELECT id, title, issuer, issue_date, expiration_date, icon_path FROM licenses_and_certifications WHERE id = %s", (license_id,))
     license = cursor.fetchone()
     conn.close()
     return license
@@ -378,11 +379,11 @@ def add_license():
         expiration_date = request.form.get('expiration_date')  # Optional
         icon_path = request.form['icon_path']  # File path to the uploaded icon.
 
-        conn = sqlite3.connect(DB_PATH)
+        conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
         cursor.execute("""
             INSERT INTO licenses_and_certifications (title, issuer, issue_date, expiration_date, icon_path)
-            VALUES (?, ?, ?, ?, ?)
+            VALUES (%s, %s, %s, %s, %s)
         """, (title, issuer, issue_date, expiration_date, icon_path))
         conn.commit()
         conn.close()
@@ -403,12 +404,12 @@ def edit_license(license_id):
         expiration_date = request.form.get('expiration_date')  # Optional
         icon_path = request.form['icon_path']
 
-        conn = sqlite3.connect(DB_PATH)
+        conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
         cursor.execute("""
             UPDATE licenses_and_certifications
-            SET title = ?, issuer = ?, issue_date = ?, expiration_date = ?, icon_path = ?
-            WHERE id = ?
+            SET title = %s, issuer = %s, issue_date = %s, expiration_date = %s, icon_path = %s
+            WHERE id = %s
         """, (title, issuer, issue_date, expiration_date, icon_path, license_id))
         conn.commit()
         conn.close()
@@ -427,9 +428,9 @@ def edit_license(license_id):
 @admin_views.route('/admin/delete_license/<int:license_id>', methods=['POST'])
 @login_required
 def delete_license(license_id):
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM licenses_and_certifications WHERE id = ?", (license_id,))
+    cursor.execute("DELETE FROM licenses_and_certifications WHERE id = %s", (license_id,))
     conn.commit()
     conn.close()
 
@@ -440,7 +441,7 @@ def delete_license(license_id):
 
 # Fetch all other experiences
 def get_all_other_experiences():
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute("SELECT id, title, company, start_date, end_date, location, description FROM other_experience")
     experiences = cursor.fetchall()
@@ -449,9 +450,9 @@ def get_all_other_experiences():
 
 # Fetch a specific other experience by ID
 def get_other_experience_by_id(exp_id):
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
-    cursor.execute("SELECT id, title, company, start_date, end_date, location, description FROM other_experience WHERE id = ?", (exp_id,))
+    cursor.execute("SELECT id, title, company, start_date, end_date, location, description FROM other_experience WHERE id = %s", (exp_id,))
     experience = cursor.fetchone()
     conn.close()
     return experience
@@ -475,11 +476,11 @@ def add_other_experience():
         location = request.form['location']
         description = request.form['description']
 
-        conn = sqlite3.connect(DB_PATH)
+        conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
         cursor.execute("""
             INSERT INTO other_experience (title, company, start_date, end_date, location, description)
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES (%s, %s, %s, %s, %s, %s)
         """, (title, company, start_date, end_date, location, description))
         conn.commit()
         conn.close()
@@ -501,12 +502,12 @@ def edit_other_experience(exp_id):
         location = request.form['location']
         description = request.form['description']
 
-        conn = sqlite3.connect(DB_PATH)
+        conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
         cursor.execute("""
             UPDATE other_experience
-            SET title = ?, company = ?, start_date = ?, end_date = ?, location = ?, description = ?
-            WHERE id = ?
+            SET title = %s, company = %s, start_date = %s, end_date = %s, location = %s, description = %s
+            WHERE id = %s
         """, (title, company, start_date, end_date, location, description, exp_id))
         conn.commit()
         conn.close()
@@ -525,9 +526,9 @@ def edit_other_experience(exp_id):
 @admin_views.route('/admin/delete_other_experience/<int:exp_id>', methods=['POST'])
 @login_required
 def delete_other_experience(exp_id):
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM other_experience WHERE id = ?", (exp_id,))
+    cursor.execute("DELETE FROM other_experience WHERE id = %s", (exp_id,))
     conn.commit()
     conn.close()
 
@@ -562,7 +563,7 @@ def format_datetime(timestamp):
 
 
 def get_all_blog_posts():
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute("""
         SELECT id, title, content, visibility, created_at, updated_at, slug
@@ -583,12 +584,12 @@ def get_all_blog_posts():
     return formatted_posts
 
 def get_blog_post_by_id(post_id):
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute("""
         SELECT id, title, content, visibility, created_at, updated_at, slug
         FROM blog_posts
-        WHERE id = ?
+        WHERE id = %s
     """, (post_id,))
     post = cursor.fetchone()
     conn.close()
@@ -618,12 +619,12 @@ def add_blog_post():
         content = request.form['content']
         visibility = request.form['visibility']
 
-        conn = sqlite3.connect(DB_PATH)
+        conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
         slug = generate_slug(title)
         cursor.execute("""
             INSERT INTO blog_posts (title, content, visibility, slug)
-            VALUES (?, ?, ?, ?)
+            VALUES (%s, %s, %s, %s)
         """, (title, content, visibility, slug))
         conn.commit()
         conn.close()
@@ -643,14 +644,14 @@ def edit_blog_post(post_id):
         visibility = request.form['visibility']
         updated_at = datetime.utcnow()  # Store UTC time in the database
 
-        conn = sqlite3.connect(DB_PATH)
+        conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
         
         # Update existing blog post
         cursor.execute("""
             UPDATE blog_posts
-            SET title = ?, content = ?, visibility = ?, updated_at = ?
-            WHERE id = ?
+            SET title = %s, content = %s, visibility = %s, updated_at = %s
+            WHERE id = %s
         """, (title, content, visibility, updated_at, post_id))
         conn.commit()
         conn.close()
@@ -670,9 +671,9 @@ def edit_blog_post(post_id):
 @admin_views.route('/admin/delete_blog_post/<int:post_id>', methods=['POST'])
 @login_required
 def delete_blog_post(post_id):
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM blog_posts WHERE id = ?", (post_id,))
+    cursor.execute("DELETE FROM blog_posts WHERE id = %s", (post_id,))
     conn.commit()
     conn.close()
 
@@ -682,12 +683,12 @@ def delete_blog_post(post_id):
 @admin_views.route('/blog/<slug>', methods=['GET'])
 def view_blog_post(slug):
     post = None
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute("""
         SELECT id, title, content, visibility, created_at, updated_at
         FROM blog_posts
-        WHERE slug = ?
+        WHERE slug = %s
     """, (slug,))
     row = cursor.fetchone()
     conn.close()

@@ -1,13 +1,14 @@
-import sqlite3
+import psycopg2
 from flask import Blueprint, render_template
+import os
 
 projects_views = Blueprint('projects', __name__)
 
-DATABASE_PATH = "robinhwang/data/robinhwang.db"
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Function to fetch project data
 def get_projects():
-    conn = sqlite3.connect(DATABASE_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute('SELECT title, description, technologies, github_link FROM projects')
     projects = cursor.fetchall()

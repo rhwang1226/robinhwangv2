@@ -1,14 +1,14 @@
 from flask import Blueprint, request, redirect, url_for, flash, render_template, session
-import sqlite3
+import psycopg2
 import bcrypt
+import os
 
 login_views = Blueprint('login', __name__)
-DATABASE = 'robinhwang/data/robinhwang.db'
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Helper function to connect to the database
 def get_db_connection():
-    conn = sqlite3.connect(DATABASE)
-    conn.row_factory = sqlite3.Row
+    conn = psycopg2.connect(DATABASE_URL)
     return conn
 
 @login_views.route('/login', methods=['GET', 'POST'])
@@ -23,7 +23,7 @@ def login():
         result = cursor.fetchone()
         conn.close()
 
-        if result and bcrypt.checkpw(password.encode('utf-8'), result['password']):
+        if result and bcrypt.checkpw(password.encode('utf-8'), result[0].encode('utf-8')):
             session['authenticated'] = True
             return redirect(url_for('admin.admin'))  # Assuming an admin panel route exists
         else:

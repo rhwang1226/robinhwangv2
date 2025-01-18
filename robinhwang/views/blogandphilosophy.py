@@ -1,12 +1,14 @@
 from flask import Blueprint, render_template
-import sqlite3
+import psycopg2
 from datetime import datetime
 import pytz
+import os
 
 blogandphilosophy_views = Blueprint('blogandphilosophy', __name__)
 
-DATABASE_PATH = "robinhwang/data/robinhwang.db"
+DATABASE_URL = os.getenv("DATABASE_URL")
 
+# Function to format datetime
 def format_datetime(timestamp):
     """
     Converts a datetime string into a human-readable format and adjusts to Eastern Time (ET).
@@ -18,18 +20,17 @@ def format_datetime(timestamp):
     except ValueError:
         # Fallback to parsing without fractional seconds
         dt = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
-    
+
     # Assuming the input timestamp is in UTC, convert to ET
     utc = pytz.utc
     eastern = pytz.timezone("US/Eastern")
     dt = utc.localize(dt).astimezone(eastern)
-    
-    return dt.strftime("%B %d, %Y • %I:%M %p ET")
 
+    return dt.strftime("%B %d, %Y • %I:%M %p ET")
 
 @blogandphilosophy_views.route('/blogandphilosophy', methods=['GET'])
 def blogandphilosophy():
-    conn = sqlite3.connect(DATABASE_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute("""
         SELECT id, title, content, visibility, created_at, updated_at, slug 
@@ -49,5 +50,4 @@ def blogandphilosophy():
         for post in posts
     ]
 
-    conn.close()
     return render_template('blogandphilosophy.html', posts=formatted_posts)
