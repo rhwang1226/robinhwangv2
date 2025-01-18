@@ -269,7 +269,7 @@ execute_values(
     cursor,
     '''
         INSERT INTO other_experience (title, company, start_date, end_date, location, description)
-        VALUES (?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?) %s
     ''',
     other_experiences
 )
