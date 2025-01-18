@@ -414,15 +414,26 @@ CREATE TABLE blog_posts (
 )
 ''')
 
-cursor.execute('''
-INSERT INTO blog_posts (title, content, visibility, slug)
-VALUES (
-    'Welcome to a Brand New Experience of robinhwang.net!',
-    'Welcome to my first-ever blog post on my personal website, robinhwang.net, V2! If you’ve stumbled upon this page, congratulations—you’ve found the beginning of something special.\n\nThis site is a space where you can get to know me, explore my thoughts, and follow along on my journey. Here, I’ll be sharing updates about my life, my studies, my projects, and everything in between.\n\nFor those who visited the previous version of robinhwang.net, this updated website offers a completely new experience—a treat for both returning and new visitors. It’s far more robustly developed than the first version, leveraging the Python Flask micro-web framework, Bulma, vanilla JavaScript, and SQLite3 (soon to be upgraded to PostgreSQL) with proper package management. Admittedly, the original version had its flaws, with a few buggy elements and shortcuts I chose to overlook. However, this new iteration is a polished reflection of a completed full-stack application, and I’m thrilled to share it with you.\n\nA little about me: I’m a student at the University of Michigan, pursuing my dream of becoming a software engineer. I love coding, exploring new places, and solving challenging problems. Through this blog, I hope to share my experiences, not only as a student but also as someone navigating the ups and downs of life and learning along the way. I also use it as a personal diary (you won\'t be able to see those blog posts though since I\'m making them private) and a place to jot down my own opinions about not only technology, but the world at-large.\n\nWhether you’re here out of curiosity, because you know me personally, or because you’ve stumbled upon this site through the vastness of the internet, or because you\'re trying to recruit me for a coveted position on your ;) software development team, I’m so glad you’re here. I hope this blog becomes a place where ideas are shared, connections are made, and stories are told.\n\nFeel free to explore my website, check out my projects, and connect with me. And if you like what you see, don’t forget to bookmark this page or drop me a message on LinkedIn. I’d love to hear from you!\n\nThank you for stopping by, and welcome to robinhwang.net. This is just the beginning, and I’m excited to see where this journey takes us.',
-    'public',
-    'how-to-build-a-simple-website-with-html-and-css-a68a17ea'
-)
-''')
+blog_posts_entries = [
+    (
+        "Welcome to a Brand New Experience of robinhwang.net!",
+        "Welcome to my first-ever blog post on my personal website, robinhwang.net, V2! If you’ve stumbled upon this page, congratulations—you’ve found the beginning of something special.\n\n"
+        "This site is a space where you can get to know me, explore my thoughts, and follow along on my journey. Here, I’ll be sharing updates about my life, my studies, my projects, and everything in between.\n\n"
+        "For those who visited the previous version of robinhwang.net, this updated website offers a completely new experience—a treat for both returning and new visitors. It’s far more robustly developed than the first version, leveraging the Python Flask micro-web framework, Bulma, vanilla JavaScript, and SQLite3 (soon to be upgraded to PostgreSQL) with proper package management. Admittedly, the original version had its flaws, with a few buggy elements and shortcuts I chose to overlook. However, this new iteration is a polished reflection of a completed full-stack application, and I’m thrilled to share it with you.\n\n"
+        "A little about me: I’m a student at the University of Michigan, pursuing my dream of becoming a software engineer. I love coding, exploring new places, and solving challenging problems. Through this blog, I hope to share my experiences, not only as a student but also as someone navigating the ups and downs of life and learning along the way. I also use it as a personal diary (you won't be able to see those blog posts though since I'm making them private) and a place to jot down my own opinions about not only technology, but the world at-large.\n\n"
+        "Whether you’re here out of curiosity, because you know me personally, or because you’ve stumbled upon this site through the vastness of the internet, or because you're trying to recruit me for a coveted position on your ;) software development team, I’m so glad you’re here. I hope this blog becomes a place where ideas are shared, connections are made, and stories are told.\n\n"
+        "Feel free to explore my website, check out my projects, and connect with me. And if you like what you see, don’t forget to bookmark this page or drop me a message on LinkedIn. I’d love to hear from you!\n\n"
+        "Thank you for stopping by, and welcome to robinhwang.net. This is just the beginning, and I’m excited to see where this journey takes us.",
+        "public",
+        "how-to-build-a-simple-website-with-html-and-css-a68a17ea"
+    )
+]
+
+for post in blog_posts_entries:
+    cursor.execute('''
+        INSERT INTO blog_posts (title, content, visibility, slug)
+        VALUES (?, ?, ?, ?)
+    ''', post)
 
 # Commit changes and close connection
 conn.commit()
