@@ -460,8 +460,8 @@ CREATE TABLE blog_posts (
     title TEXT NOT NULL,
     content TEXT NOT NULL,
     visibility TEXT CHECK(visibility IN ('public', 'unlisted', 'private')) DEFAULT 'private',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     slug TEXT
 )
 ''')
