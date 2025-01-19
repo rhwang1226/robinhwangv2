@@ -15,6 +15,15 @@ conn = psycopg2.connect(db_url)
 cursor = conn.cursor()
 
 ####################################### TABLE CREATION ########################################
+cursor.execute('DROP TABLE IF EXISTS relevant_experience CASCADE')
+cursor.execute('DROP TABLE IF EXISTS coursework CASCADE')
+cursor.execute('DROP TABLE IF EXISTS conference_management_experience CASCADE')
+cursor.execute('DROP TABLE IF EXISTS licenses_and_certifications CASCADE')
+cursor.execute('DROP TABLE IF EXISTS other_experience CASCADE')
+cursor.execute('DROP TABLE IF EXISTS projects CASCADE')
+cursor.execute('DROP TABLE IF EXISTS blog_posts CASCADE')
+cursor.execute('DROP TABLE IF EXISTS password CASCADE')
+
 # Create the `relevant_experience` table
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS relevant_experience (
@@ -439,7 +448,7 @@ execute_values(
 ####################################### LOGIN ########################################
 load_dotenv()
 password = os.getenv('PASSWORD')
-hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS password (
     password TEXT NOT NULL
