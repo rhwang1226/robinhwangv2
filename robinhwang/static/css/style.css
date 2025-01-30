@@ -132,6 +132,13 @@ p {
     color: white;
 }
 
+.toolkit-cuda {
+    width: 72px;
+    /* Set desired width */
+    height: 72px;
+    /* Set desired height */
+}
+
 .toolkit-pytorch {
     width: 60px;
     /* Set desired width */
